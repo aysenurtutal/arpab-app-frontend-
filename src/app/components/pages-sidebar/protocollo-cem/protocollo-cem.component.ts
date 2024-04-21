@@ -37,7 +37,6 @@ export class ProtocolloCemComponent implements OnInit{
   numcodsitoOptions: any[];
   statoimpiantoOptions: any[];
   statoproceduraOptions: any[];
-  lastUserId: number = 0;
   dataForm: FormGroup;
 
   constructor(private fb: FormBuilder, private protocolloCemService: ProtocolloCemService,

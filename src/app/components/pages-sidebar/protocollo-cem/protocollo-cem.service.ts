@@ -10,13 +10,9 @@ import {ProtocolloCemComponent} from "./protocollo-cem.component";
   providedIn: 'root'
 })
 export class ProtocolloCemService {
-  url = 'https://8e1ea2a5-b684-4541-a019-4ede243a1eb7.mock.pstmn.io/protocollocem';
   private _portalApiRoot = `${environment.apiRoot}`;
   constructor(private http: HttpClient) { }
 
-  getProtocolloCemJson(): Observable<ProtocolloCemDto> {
-    return this.http.get<any>('assets/data/protocolloCem.json');
-  }
   getProtocolloCemData(): Observable<ProtocolloCemDto[]> {
     const networkUrl = this._portalApiRoot + `protocollocem`;
     return this.http

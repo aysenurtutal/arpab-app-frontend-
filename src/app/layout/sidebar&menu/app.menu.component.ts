@@ -25,7 +25,7 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Protocollo', icon: 'pi pi-fw pi-pencil', routerLink: ['protocollo']
                             },
                             {
-                                label: 'Vedi Protokolli GEOS', icon: 'pi pi-fw pi-pencil', routerLink: ['/admin/protocollogeos']
+                                label: 'Vedi Protokolli GEOS', icon: 'pi pi-fw pi-pencil', routerLink: ['protocollogeos']
                             },
 
                         ]

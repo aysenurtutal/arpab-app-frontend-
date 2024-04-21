@@ -8,6 +8,7 @@ import {LandingComponent} from "./components/landing/landing.component";
 import {NotfoundComponent} from "./components/auth/notfound/notfound.component";
 import {ProtocolloCemComponent} from "./components/pages-sidebar/protocollo-cem/protocollo-cem.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {ProtocolliGeosComponent} from "./components/pages-sidebar/protocolli-geos/protocolli-geos.component";
 
 
 // { path: 'login', component: LoginComponent, canActivate: [authGuard]},
@@ -16,8 +17,9 @@ const routes: Routes = [
   {
     path: '', component: AppLayoutComponent,
     children: [
+      {path: 'dashboard', component: DashboardComponent},
       {path: 'protocollo', component: ProtocolloCemComponent},
-      { path: 'dashboard', component: DashboardComponent},
+      {path: 'protocollogeos', component: ProtocolliGeosComponent},
     ]
   },
   {path: 'login', component: LoginComponent},

@@ -51,6 +51,7 @@ import {AppMenuitemComponent} from "./layout/sidebar&menu/app.menuitem.component
 import {AppTopBarComponent} from "./layout/topbar/app.topbar.component";
 import {ProtocolloCemComponent} from "./components/pages-sidebar/protocollo-cem/protocollo-cem.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {ProtocolliGeosComponent} from "./components/pages-sidebar/protocolli-geos/protocolli-geos.component";
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import {DashboardComponent} from "./components/dashboard/dashboard.component";
         AppMenuComponent,
         AppMenuitemComponent,
         ProtocolloCemComponent,
-        DashboardComponent
+        DashboardComponent,
+        ProtocolliGeosComponent
 
     ],
     imports: [

@@ -1,0 +1,15 @@
+<div class="login-container">
+    <h2>Login</h2>
+    <form #loginForm="ngForm" (ngSubmit)="login()">
+        <div class="p-field">
+            <label for="username">Username</label>
+            <input [(ngModel)]="username" id="username" name="username" pInputText required type="text">
+        </div>
+        <div class="p-field">
+            <label for="password">Password</label>
+            <input [(ngModel)]="password" id="password" name="password" pPassword required type="password">
+        </div>
+        <button [disabled]="!username || !password" [routerLink]="''" class="p-button-primary" label="Login"
+                pButton></button>
+    </form>
+</div>

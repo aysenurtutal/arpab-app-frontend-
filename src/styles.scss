@@ -1,0 +1,130 @@
+/*!* You can add global styles to this file, and also import other style files *!*/
+
+/*$gutter: 1rem;*/
+@import "assets/layout/styles/layout/layout.scss";
+
+/* PrimeNG */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+@import 'primeng/resources/themes/saga-blue/theme.css';
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+/* Demos */
+@import "assets/demo/styles/flags/flags.css";
+@import "assets/demo/styles/badges.scss";
+@import "assets/demo/styles/code.scss";
+
+:host ::ng-deep.layout-sidebar {
+    //background-color: #e0ffdf;
+    background-color: #180f0ffa;
+}
+
+.pi.pi-home {
+    color: white; /* Set the color to blue */
+    //font-size: 20px; /* Set the font size to 100px */
+}
+
+:host ::ng-deep .p-dialog .product-image {
+    width: 150px;
+    margin: 0 auto 2rem auto;
+    display: block;
+}
+
+::ng-deep #events > div::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+::ng-deep #events #clear {
+    float: right;
+}
+
+::ng-deep #events .caption {
+    float: left;
+    font-weight: bold;
+    font-size: 115%;
+    line-height: 115%;
+    padding-top: 7px;
+}
+
+::ng-deep #events ul {
+    list-style: none;
+    max-height: 100px;
+    overflow: auto;
+    margin: 0;
+}
+
+::ng-deep #events ul li {
+    padding: 7px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+::ng-deep #events ul li:last-child {
+    border-bottom: none;
+}
+
+:host > > > .user-form {
+    width: 30%;
+}
+
+:host > > > .p-inputtext {
+    width: 100%;
+}
+
+.layout-topbar {
+    display: flex;
+    align-items: center; /* Vertically center items */
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+    padding: 0 16px; /* Add padding to adjust spacing */
+    background-color: rgb(5, 74, 105);;
+}
+
+.layout-topbar-center {
+    text-align: center; /* Center text horizontally */
+}
+
+.layout-topbar-center h2 {
+    margin-bottom: 0.5rem; /* Adjust spacing between heading and paragraph */
+}
+
+.fullscreen-button {
+    margin-right: 1rem; /* Adjust margin as needed */
+}
+
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #fff;
+}
+
+::ng-deep .p-orderlist .p-orderlist-controls {
+    display: none;
+}
+
+::ng-deep .pi.pi-tag {
+    display: none; /* Hide the element with class pi-tag */
+}
+
+.p-button-search {
+    background-color: white;
+    color: gray;
+    width: 50px !important;
+}
+
+.hide-list {
+    float: inline-end;
+    padding-top: 230px;
+    color: white;
+}
+
+.hide-list-after {
+    float: inline-end;
+    padding-top: 105px;
+    color: white;
+}
+

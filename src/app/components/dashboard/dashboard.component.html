@@ -1,0 +1,127 @@
+<div class="dashboard-container">
+    <h2>ARPAB GESTIONE PROTOCOLLI</h2>
+    <p>DEMO PER INSERIMENTO DATI DA FILE IN DATABASE SPECIFICO</p>
+
+    <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-content">
+                <img src="assets/arpab-assets/dashboard-picture.jpg" alt="Image 1">
+                <div class="card-text">
+                    <h3>IMPORTA DA GEOS</h3>
+                </div>
+                <div class="card-button-container">
+<!--                    <button [routerLink]="'/admin/dashboard'" class="card-button">UPLOAD</button>-->
+                    <p-fileUpload mode="basic" chooseLabel="UPLOAD" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-content">
+                <img src="assets/arpab-assets/dashboard-picture.jpg" alt="Image 1">
+                <div class="card-text">
+                    <h3>PROTOCOLLI GEOS</h3>
+                </div>
+                <div class="card-button-container">
+                    <button class="card-button"  [routerLink]="'/protocollogeos'">VISUALIZZA</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-content">
+                <img src="assets/arpab-assets/dashboard-picture.jpg" alt="Image 1">
+                <div class="card-text">
+                    <h3>PROTOCOLLO FLUSSO CEM</h3>
+                </div>
+                <div class="card-button-container">
+                    <button class="card-button"  [routerLink]="'/protocollocem'">VISUALIZZA</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-content">
+                <img src="assets/arpab-assets/dashboard-picture.jpg" alt="Image 1">
+                <div class="card-text">
+                    <h3>CREA DOCUMENTI WORD</h3>
+                </div>
+                <div class="card-button-container">
+                    <button class="card-button"  [routerLink]="'/exportdoc'">GENERA</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-content">
+                <img src="assets/arpab-assets/dashboard-picture.jpg" alt="Image 1">
+                <div class="card-text">
+                    <h3>ELENCO STRUMENTI CEM</h3>
+                </div>
+                <div class="card-button-container">
+                    <button  [routerLink]="'/strumenticem'" class="card-button">VEDI</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-content">
+                <img src="assets/arpab-assets/dashboard-picture.jpg" alt="Image 1">
+                <div class="card-text">
+                    <h3>VEDI GESTORI</h3>
+                </div>
+                <div class="card-button-container">
+                    <button  [routerLink]="'/catastoarpabgestori'" class="card-button">VEDI</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-content">
+                <img src="assets/arpab-assets/dashboard-picture.jpg" alt="Image 1">
+                <div class="card-text">
+                    <h3>CALENDARIO</h3>
+                </div>
+                <div class="card-button-container">
+                    <a href="https://trello.com/b/iNuHFUrR/arpab-demo" class="card-button">ACCEDI AL CALENDARIO</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-content">
+                <img src="assets/arpab-assets/dashboard-picture.jpg" alt="Image 1">
+                <div class="card-text">
+                    <h3>DASHBOARD 1</h3>
+                </div>
+                <div class="card-button-container">
+                    <a href="https://demos.creative-tim.com/now-ui-dashboard/examples/dashboard.html?_ga=2.12581492.1950508500.1683580143-1395809351.1683580143" class="card-button">DASHBOARD 1</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-content">
+                <img src="assets/arpab-assets/dashboard-picture.jpg" alt="Image 1">
+                <div class="card-text">
+                    <h3>ESCI</h3>
+                </div>
+                <div class="card-button-container">
+                    <button [routerLink]="'/login'" class="card-button">LOGOUT</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

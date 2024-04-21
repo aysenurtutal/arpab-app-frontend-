@@ -1,0 +1,20 @@
+<ul class="layout-menu">
+
+    <li>
+        <img src="../../../assets/arpab-assets/arpab-icon.jpg"
+             style="height: 130px; width: 150px;margin-left: 4.5rem; margin-bottom: 1rem"/>
+    </li>
+    <br><br>
+    <li style="display: inline-flex; width:100%">
+        <input [(ngModel)]="searchTerm" class="w-full" pInputText placeholder="Search" type="text"/>
+        <button (click)="search()" class="p-button-search" icon="pi pi-search" iconPos="right" pButton
+                type="button"></button>
+    </li>
+
+    <br><br>
+    <ng-container *ngFor="let item of model; let i = index;">
+        <li [index]="i" [item]="item" [root]="true" app-menuitem></li>
+        <li *ngIf="item.separator" class="menu-separator"></li>
+    </ng-container>
+
+</ul>

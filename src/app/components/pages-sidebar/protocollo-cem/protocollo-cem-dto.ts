@@ -1,0 +1,35 @@
+export class ProtocolloCemDto {
+    aie?: string;
+    autore?: string;
+    azione?: string;
+    azionedup?: string;
+    categoria?: string;
+    cdsdata?: any;
+    cdsora?: string;
+    commriscontro?: string;
+    congiunta?: string;
+    data?: any;
+    destinatario?: string;
+    dirigente?: string;
+    funzionario?: string;
+    idprot?: number;
+    mittente?: string;
+    notadigos?: string;
+    note?: string;
+    numcodsito?: string[];
+    numprotcoll?: string;
+    oggetto?: string;
+    protocollo?: string;
+    protcollegato?: string;
+    protriferime?: any;
+    riscontrogeos?: any;
+    scadenza?: any;
+    scadenza2?: any;
+    senso?: string;
+    simulazione?: any;
+    sottocategoria?: string;
+    statoimpianto?: string;
+    statoprocedura?: any;
+    subassegnazione?: any;
+    tematica?: string;
+}

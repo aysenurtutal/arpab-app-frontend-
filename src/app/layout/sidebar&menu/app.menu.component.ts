@@ -34,7 +34,7 @@ export class AppMenuComponent implements OnInit {
                         label: 'GESTORI', icon: 'pi pi-home',
                         items: [
                             {
-                                label: 'Catasto Sito Gestori CEM', icon: 'pi pi-fw pi-pencil', routerLink: ['']
+                                label: 'Catasto Sito Gestori CEM', icon: 'pi pi-fw pi-pencil', routerLink: ['codicesitogestori']
                             },
                             {
                                 label: 'Scheda RadioElettrica', icon: 'pi pi-fw pi-pencil', routerLink: ['']

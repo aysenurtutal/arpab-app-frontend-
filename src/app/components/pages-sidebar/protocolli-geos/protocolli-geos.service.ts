@@ -34,8 +34,8 @@ export class ProtocolliGeosService {
     return this.http.delete<any>(networkUrl, { body: idprots });
   }
 
-  sensoSelectboxValuesProtocolloCem(): Observable<any>{
-    const networkUrl = this._portalApiRoot + `senso`;
+  sensoSelectboxValuesProtocolliGeos(): Observable<any>{
+    const networkUrl = `${this._portalApiRoot}protocolligeos/senso`;
     return this.http
         .get<BaseResponse<any[]>>(networkUrl)
         .pipe(map((m) => m.data));

@@ -52,6 +52,7 @@ import {AppTopBarComponent} from "./layout/topbar/app.topbar.component";
 import {ProtocolloCemComponent} from "./components/pages-sidebar/protocollo-cem/protocollo-cem.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ProtocolliGeosComponent} from "./components/pages-sidebar/protocolli-geos/protocolli-geos.component";
+import {CodiceSitoGestoriComponent} from "./components/pages-sidebar/codice-sito-gestori/codice-sito-gestori.component";
 
 
 @NgModule({
@@ -70,8 +71,8 @@ import {ProtocolliGeosComponent} from "./components/pages-sidebar/protocolli-geo
         AppMenuitemComponent,
         ProtocolloCemComponent,
         DashboardComponent,
-        ProtocolliGeosComponent
-
+        ProtocolliGeosComponent,
+        CodiceSitoGestoriComponent,
     ],
     imports: [
         AppRoutingModule,

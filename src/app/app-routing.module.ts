@@ -9,6 +9,7 @@ import {NotfoundComponent} from "./components/auth/notfound/notfound.component";
 import {ProtocolloCemComponent} from "./components/pages-sidebar/protocollo-cem/protocollo-cem.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ProtocolliGeosComponent} from "./components/pages-sidebar/protocolli-geos/protocolli-geos.component";
+import {CodiceSitoGestoriComponent} from "./components/pages-sidebar/codice-sito-gestori/codice-sito-gestori.component";
 
 
 // { path: 'login', component: LoginComponent, canActivate: [authGuard]},
@@ -20,6 +21,7 @@ const routes: Routes = [
       {path: 'dashboard', component: DashboardComponent},
       {path: 'protocollo', component: ProtocolloCemComponent},
       {path: 'protocollogeos', component: ProtocolliGeosComponent},
+      {path: 'codicesitogestori', component: CodiceSitoGestoriComponent},
     ]
   },
   {path: 'login', component: LoginComponent},

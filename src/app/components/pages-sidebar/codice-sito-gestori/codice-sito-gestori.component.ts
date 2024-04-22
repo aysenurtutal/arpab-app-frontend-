@@ -3,41 +3,59 @@ import {ConfirmationService, MessageService} from "primeng/api";
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
-import {ProtocolliGeosService} from "./protocolli-geos.service";
-import {ProtocolliGeosDto} from "./protocolli-geos-dto";
+import {CodiceSitoGestoriService} from "./codice-sito-gestori.service";
+import {CodiceSitoGestoriDto} from "./codice-sito-gestori-dto";
 @Component({
-  selector: 'app-protocolli-geos',
-  templateUrl: './protocolli-geos.component.html',
-  styleUrls: ['./protocolli-geos.component.css'],
+  selector: 'app-codice-sito-gestori',
+  templateUrl: './codice-sito-gestori.component.html',
+  styleUrls: ['./codice-sito-gestori.component.css'],
   providers: []
 
 })
-export class ProtocolliGeosComponent implements OnInit{
+export class CodiceSitoGestoriComponent implements OnInit{
 
   dataDialog: boolean;
   newDialog: boolean;
   dataShowDialog: boolean;
   selectedIdProt: number;
-  datas: ProtocolliGeosDto[];
-  data: ProtocolliGeosDto;
-  selectedDatas: ProtocolliGeosDto[];
-  selectedData: ProtocolliGeosDto;
+  datas: CodiceSitoGestoriDto[];
+  data: CodiceSitoGestoriDto;
+  selectedDatas: CodiceSitoGestoriDto[];
+  selectedData: CodiceSitoGestoriDto;
   submittedData: boolean;
   isDataReadonly: boolean = false;
 
 
-  sensoOptions: any[];
+  gestoreOptions: any[];
+  regioneOptions: any[];
+  provinciaOptions: any[];
+  comuneOptions: any[];
+  protcollOptions: any[];
+
   dataForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private protocolliGeosService: ProtocolliGeosService,
+  constructor(private fb: FormBuilder, private codiceSitoGestoriService: CodiceSitoGestoriService,
               private messageService: MessageService, private confirmationService: ConfirmationService) {
-    this.protocolliGeosService.sensoSelectboxValuesProtocolliGeos().subscribe(res => {
-      this.sensoOptions = res;
+    this.codiceSitoGestoriService.gestoreSelectboxValuesCodiceSitoGestori().subscribe(res => {
+      this.gestoreOptions = res;
+    })
+    this.codiceSitoGestoriService.regioneSelectboxValuesCodiceSitoGestori().subscribe(res => {
+      this.regioneOptions = res;
+    })
+    this.codiceSitoGestoriService.provinciaSelectboxValuesCodiceSitoGestori().subscribe(res => {
+      this.provinciaOptions = res;
+    })
+    this.codiceSitoGestoriService.comuneSelectboxValuesCodiceSitoGestori().subscribe(res => {
+      this.comuneOptions = res;
+    })
+    this.codiceSitoGestoriService.protcollSelectboxValuesCodiceSitoGestori().subscribe(res => {
+      this.protcollOptions = res;
     })
   }
 
   ngOnInit() {
-    this.protocolliGeosService.getProtocolliGeos().subscribe(data => {
+
+    this.codiceSitoGestoriService.getCodiceSitoGestoriData().subscribe(data => {
       this.datas = data;
     });
     this.initializeForm();
@@ -45,27 +63,47 @@ export class ProtocolliGeosComponent implements OnInit{
 
   initializeForm(): void {
     this.dataForm = this.fb.group({
-      idprot: [''],
-      senso: [''],
-      data: [''],
-      protocollo: [''],
-      autore: [''],
-      mittente: [''],
-      destinatario: [''],
-      oggetto: [''],
+      numcodsito: [''],
+      numcodsitoold: [''],
+      nomesito: [''],
+      gestore: [''],
+      tipoimpianto: [''],
+      regione: [''],
+      provincia: [''],
+      comune: [''],
+      indirizzo: [''],
+      numlocosscem: [''],
+      locosscem: [''],
+      coordinatelong: [''],
+      coordinatelat: [''],
+      protocollocheck: [''],
+      protcoll: [''],
+      linkcondivisia: [''],
+      dataprot: [''],
+      statoimpianto: [''],
     });
   }
 
   dataPatch(): void{
     this.dataForm.patchValue({
-      id: this.data?.idprot || '',
-      senso: this.data?.senso || '',
-      data: this.data?.data || '',
-      protocollo: this.data?.protocollo || '',
-      autore: this.data?.autore || '',
-      mittente: this.data?.mittente || '',
-      destinatario: this.data?.destinatario || '',
-      oggetto: this.data?.oggetto || '',
+      numcodsito: this.data?.numcodsito || '',
+      numcodsitoold: this.data?.numcodsitoold || '',
+      nomesito: this.data?.nomesito || '',
+      gestore: this.data?.gestore || '',
+      tipoimpianto: this.data?.tipoimpianto || '',
+      regione: this.data?.regione || '',
+      provincia: this.data?.provincia || '',
+      comune: this.data?.comune || '',
+      indirizzo: this.data?.indirizzo || '',
+      numlocosscem: this.data?.numlocosscem || '',
+      locosscem: this.data?.locosscem || '',
+      coordinatelong: this.data?.coordinatelong || '',
+      coordinatelat: this.data?.coordinatelat || '',
+      protocollocheck: this.data?.protocollocheck || '',
+      protcoll: this.data?.protcoll || '',
+      linkcondivisia: this.data?.linkcondivisia || '',
+      dataprot: this.data?.dataprot || '',
+      statoimpianto: this.data?.statoimpianto || '',
     });
   }
 
@@ -77,21 +115,16 @@ export class ProtocolliGeosComponent implements OnInit{
     this.isDataReadonly = false;
   }
 
-  editData(data: ProtocolliGeosDto) {
+  editData(data: CodiceSitoGestoriDto) {
     this.data = {...data};
     this.dataDialog = true;
-    this.selectedIdProt = data.idprot;
+    this.selectedIdProt = data.numcodsito;
     this.isDataReadonly = false;
     this.dataPatch();
-
-    const dataValue = this.dataForm.get('data').value;
-    const formattedDate = dataValue ? new Date(dataValue) : null;
-
-    this.dataForm.controls['data'].setValue(formattedDate);
   }
 
 
-  showData(data: ProtocolliGeosDto) {
+  showData(data: CodiceSitoGestoriDto) {
     this.data = {...data};
     this.selectedData = this.data;
     this.dataShowDialog = true;
@@ -107,14 +140,18 @@ export class ProtocolliGeosComponent implements OnInit{
     this.dataShowDialog = false;
     this.submittedData = false;
   }
-  deleteData(data: ProtocolliGeosDto) {
-    if(data.idprot){
+  navigateTo() {
+    const url = 'https://dropfacile.it/arpab/admin/codicesitogestori';
+    window.open(url, '_blank');
+  }
+  deleteData(data: CodiceSitoGestoriDto) {
+    if(data.numcodsito){
       this.confirmationService.confirm({
         message: 'Are you sure you want to delete?',
         header: 'Confirm',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
-          this.protocolliGeosService.deleteSelectedDataProtocolliGeos(data.idprot).subscribe(() => {
+          this.codiceSitoGestoriService.deleteSelectedDataCodiceSitoGestori(data.numcodsito).subscribe(() => {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
           })
         }
@@ -126,13 +163,13 @@ export class ProtocolliGeosComponent implements OnInit{
 
   deleteSelectedDatas() {
     if (this.selectedDatas.length == 1) {
-      const idprot = this.selectedDatas[0].idprot;
-      this.protocolliGeosService.deleteSelectedDataProtocolliGeos(idprot).subscribe(() => {
+      const idprot = this.selectedDatas[0].numcodsito;
+      this.codiceSitoGestoriService.deleteSelectedDataCodiceSitoGestori(idprot).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
       })
     } else if(this.selectedDatas.length > 1){
-      const idprots = this.selectedDatas.map(data => data.idprot);
-      this.protocolliGeosService.deletemultipleSelectedDatasProtocolliGeos(idprots).subscribe(() => {
+      const idprots = this.selectedDatas.map(data => data.numcodsito);
+      this.codiceSitoGestoriService.deletemultipleSelectedDatasCodiceSitoGestori(idprots).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
       });
     }else{
@@ -141,30 +178,28 @@ export class ProtocolliGeosComponent implements OnInit{
   }
 
   saveData(){
-    const dtoOut = new ProtocolliGeosDto();
-    dtoOut.senso = this.dataForm.get('senso').value;
-    const dateValue = this.dataForm.get('data').value;
-    if (dateValue == null) {
-      dtoOut.data = null;
-    } else if (dateValue instanceof Date) {
-      const day = String(dateValue.getDate()).padStart(2, '0');
-      const month = String(dateValue.getMonth() + 1).padStart(2, '0');
-      const year = dateValue.getFullYear();
-
-      dtoOut.data = `${year}-${month}-${day}`;
-    }
-
-    dtoOut.protocollo = this.dataForm.get('protocollo').value;
-    dtoOut.autore = this.dataForm.get('autore').value;
-    dtoOut.mittente = this.dataForm.get('mittente').value;
-    dtoOut.destinatario = this.dataForm.get('destinatario').value;
-    dtoOut.oggetto = this.dataForm.get('oggetto').value;
-
+    const dtoOut = new CodiceSitoGestoriDto();
+    dtoOut.numcodsito = this.dataForm.get('numcodsito').value;
+    dtoOut.numcodsitoold = this.dataForm.get('numcodsitoold').value;
+    dtoOut.nomesito = this.dataForm.get('nomesito').value;
+    dtoOut.gestore = this.dataForm.get('gestore').value;
+    dtoOut.tipoimpianto = this.dataForm.get('tipoimpianto').value;
+    dtoOut.regione = this.dataForm.get('regione').value;
+    dtoOut.provincia = this.dataForm.get('provincia').value;
+    dtoOut.comune = this.dataForm.get('comune').value;
+    dtoOut.indirizzo = this.dataForm.get('indirizzo').value;
+    dtoOut.numlocosscem = this.dataForm.get('numlocosscem').value;
+    dtoOut.locosscem = this.dataForm.get('locosscem').value;
+    dtoOut.coordinatelong = this.dataForm.get('coordinatelong').value;
+    dtoOut.coordinatelat = this.dataForm.get('coordinatelat').value;
+    dtoOut.protocollocheck = this.dataForm.get('protocollocheck').value;
+    dtoOut.protcoll = this.dataForm.get('protcoll').value;
+    dtoOut.linkcondivisia = this.dataForm.get('linkcondivisia').value;
     if(this.newDialog == true){
-      this.protocolliGeosService.postSaveNewProtocolliGeosData(dtoOut).subscribe(() => {
+      this.codiceSitoGestoriService.postSaveNewCodiceSitoGestoriData(dtoOut).subscribe(() => {
       })
     }else if(this.dataDialog== true){
-      this.protocolliGeosService.putUpdatedOneDataProtocolliGeos(this.selectedIdProt, dtoOut).subscribe(() => {
+      this.codiceSitoGestoriService.putUpdatedOneDataCodiceSitoGestori(this.selectedIdProt, dtoOut).subscribe(() => {
       })
     }
   }
@@ -198,7 +233,7 @@ export class ProtocolliGeosComponent implements OnInit{
     this.saveAsExcelFile(excelBuffer, 'selected_rows.xlsx');
   }
   selectedExportExcelForOneData() {
-    const selectedData = this.datas.filter(data => this.selectedData.idprot  == data.idprot );
+    const selectedData = this.datas.filter(data => this.selectedData.numcodsito  == data.numcodsito );
     // Convert filtered data to Excel format
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(selectedData);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };

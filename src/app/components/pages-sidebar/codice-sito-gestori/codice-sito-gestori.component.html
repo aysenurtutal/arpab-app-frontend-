@@ -1,0 +1,447 @@
+ <div>
+    <div style="display: inline-flex;">
+        <span class="pi pi-home" routerLink="/dashboard"></span>
+    </div>
+    <span class="font-medium ml-2">/ Protocollo CEM </span>
+</div>
+
+<p-toolbar styleClass="mb-4" class="col-12">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="AGGIUNGI NUOVO" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNewData()"></button>
+        <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedDatas()" [disabled]="!selectedDatas || !selectedDatas.length"></button>
+    </ng-template>
+
+    <ng-template pTemplate="center">
+        <div class="search-container">
+        <span class="p-input-icon-left" style="width: 400px;">
+            <i class="pi pi-search" style="margin-right: 5px;"></i>
+            <input style="background-color: white;" pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                   placeholder="Ricerce Numero Cod Sito"
+                   class="search-input"/>
+        </span>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="right" >
+        <!--        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>-->
+        <button pButton pRipple label="Export Excel (Selected)" icon="pi pi-file-pdf" class="p-button-help p-button-sm mr-2" style="max-width: 100px" (click)="selectedExportExcel()"></button>
+
+        <button pButton pRipple label="Export Excel (All)" icon="pi pi-file-excel" class="p-button-help p-button-sm" style="max-width: 100px" (click)="exportExcelAll()"></button>
+    </ng-template>
+</p-toolbar>
+
+<div style="max-height: 700px; overflow: auto;">
+<p-table #dt [value]="datas" [rows]="10" [paginator]="true" [globalFilterFields]="['numcodsito']"
+         [(selection)]="selectedDatas" [rowHover]="true" dataKey="numcodsito" [rowsPerPageOptions]="[10, 25, 50]"
+         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+         [tableStyle]="{ 'min-width': '75rem' }" styleClass="p-datatable-gridlines">
+    <ng-template pTemplate="header">
+        <tr style="background-color: blue;">
+            <th style="text-align: center;background-color: lightgray">
+            </th>
+            <th style="text-align: center;background-color: lightgray">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th style="text-align: center;background-color: lightgray">
+                <p style="display: inline-flex">
+                    <a style="color: lightgray">.........</a>
+                    Azione
+                    <a style="color: lightgray">.........</a>
+                </p>
+            </th>
+            <th pSortableColumn="numcodsito" style="text-align: center;background-color: lightgray">
+                Numero Cod Sito <p-sortIcon field="numcodsito"></p-sortIcon>
+            </th>
+            <th pSortableColumn="numcodsitoold" style="text-align: center;background-color: lightgray">
+                Numero Cod Sito OLD <p-sortIcon field="numcodsitoold"></p-sortIcon>
+            </th>
+            <th pSortableColumn="nomesito" style="text-align: center;background-color: lightgray">
+                Nome Sito <p-sortIcon field="nomesito"></p-sortIcon>
+            </th>
+            <th pSortableColumn="gestore" style="text-align: center;background-color: lightgray">
+                Gestore <p-sortIcon field="gestore"></p-sortIcon>
+            </th>
+            <th pSortableColumn="tipoimpianto" style="text-align: center;background-color: lightgray">
+                Tipo Impianto <p-sortIcon field="tipoimpianto"></p-sortIcon>
+            </th>
+            <th pSortableColumn="regione" style="text-align: center;background-color: lightgray">
+                Regione <p-sortIcon field="regione"></p-sortIcon>
+            </th>
+            <th pSortableColumn="provincia" style="text-align: center;background-color: lightgray">
+                Provincia <p-sortIcon field="provincia"></p-sortIcon>
+            </th>
+            <th pSortableColumn="comune" style="text-align: center;background-color: lightgray">
+                Comune <p-sortIcon field="comune"></p-sortIcon>
+            </th>
+            <th pSortableColumn="indirizzo" style="text-align: center;background-color: lightgray">
+                Indirizzo <p-sortIcon field="indirizzo"></p-sortIcon>
+            </th>
+            <th pSortableColumn="numlocosscem" style="text-align: center;background-color: lightgray">
+                Num Loc Oss CEM <p-sortIcon field="numlocosscem"></p-sortIcon>
+            </th>
+            <th pSortableColumn="locosscem" style="text-align: center;background-color: lightgray">
+                Local. Oss. CEM <p-sortIcon field="locosscem"></p-sortIcon>
+            </th>
+            <th pSortableColumn="coordinatelong" style="text-align: center;background-color: lightgray">
+                Coordinate Longitudine <p-sortIcon field="coordinatelong"></p-sortIcon>
+            </th>
+            <th pSortableColumn="coordinatelat" style="text-align: center;background-color: lightgray">
+                Coordinate Latitudine <p-sortIcon field="coordinatelat"></p-sortIcon>
+            </th>
+            <th pSortableColumn="linkcondivisia" style="text-align: center;background-color: lightgray">
+                Link Cartella Condivis <p-sortIcon field="linkcondivisia"></p-sortIcon>
+            </th>
+
+            <th style="text-align: center;background-color: lightgray">
+                Mostra </th>
+
+        </tr>
+        <tr>
+            <th style="background-color: lightgray"></th>
+            <th style="background-color: lightgray"></th>
+            <th style="background-color: lightgray"></th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="numcodsito"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="numcodsitoold"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="nomesito"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="gestore"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="tipoimpianto"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="regione"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="provincia"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="comune"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="indirizzo"></p-columnFilter>
+            </th>
+
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="numlocosscem"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="locosscem"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="coordinatelong"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="coordinatelat"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="linkcondivisia"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5">No data found.</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data>
+        <tr>
+            <td style="text-align: center;">
+                <button type="button" pButton pRipple [pRowToggler]="data" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            </td>
+            <td style="text-align: center;"> <!-- Center align data -->
+                <p-tableCheckbox [value]="data"></p-tableCheckbox>
+            </td>
+            <td style="text-align: center;">
+                <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-primary mr-2" (click)="showData(data)"></button>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editData(data)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteData(data)"></button>
+            </td>
+            <td style="text-align: center;">
+                {{data?.numcodsito}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.numcodsitoold}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.nomesito}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.gestore}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.tipoimpianto}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.regione}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.provincia}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.comune}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.indirizzo}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.numlocosscem}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.locosscem}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.coordinatelong}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.coordinatelat}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.linkcondivisia}}
+            </td>
+
+            <td style="text-align: center;">
+                <p-button icon="pi pi-external-link" ariaLabel="all" (click)="navigateTo()"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-data>
+        <tr>
+            <td colspan="12">
+                <div class="expanded-row">
+                    <strong>Protocollo Collegato:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.protocollocheck }}
+                </div>
+            </td>
+        </tr>
+<!--        BELOW PROTCOLL ARRAY WILL BE ADDED AND OPEND WITH CLICK-->
+        <tr>
+            <td colspan="12">
+                <div class="expanded-row">
+                    <strong>Protocollo:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.protcoll }}
+                </div>
+            </td>
+        </tr>
+<!--        BELOW RELATED NUMCODSİTO TABLE WILL BE ADDED-->
+        <tr>
+            <td colspan="12">
+                <div class="expanded-row">
+                    <strong>Scheda RadioElettrica:&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            In total there are {{datas ? datas.length : 0 }} datas.
+        </div>
+    </ng-template>
+
+</p-table>
+</div>
+
+<!-- FORM POPUP KISMI-->
+<p-dialog [(visible)]="newDialog || dataDialog" [style]="{width: '700px'}" header="Add & Update Data" [modal]="true" [maximizable]="true">
+    <form [formGroup]="dataForm" (ngSubmit)="saveData()" novalidate class="form-dialog">
+        <div class="field">
+            <label for="numcodsito" class="block">Numero Cod Sito</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="numcodsito" />
+        </div>
+        <div class="field">
+            <label for="numcodsitoold" class="block">Numero Cod Sito OLD</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="numcodsitoold" />
+        </div>
+        <div class="field">
+            <label for="nomesito" class="block">Nome Sito</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="nomesito" />
+        </div>
+        <div class="field">
+            <label for="gestore" class="block">Gestore</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="gestore"  [options]="gestoreOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="fieldSiNo">
+            <label for="tipoimpianto">Tipo Impianto</label>
+            <div>
+                <span id="-">-</span>
+                <p-radioButton formControlName="tipoimpianto" value="-" inputId="-"></p-radioButton>
+            </div>
+            <div>
+                <span id="elf">ELF</span>
+                <p-radioButton formControlName="tipoimpianto" value="ELF" inputId="ELF"></p-radioButton>
+            </div>
+            <div>
+                <span id="rtv">RTV</span>
+                <p-radioButton formControlName="tipoimpianto" value="RTV" inputId="RTV"></p-radioButton>
+            </div>
+            <div>
+                <span id="srb">SRB</span>
+                <p-radioButton formControlName="tipoimpianto" value="SRB" inputId="SRB"></p-radioButton>
+            </div>
+        </div>
+        <div class="field">
+            <label for="regione" class="block">Regione</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="regione"  [options]="regioneOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="field">
+            <label for="provincia" class="block">Provincia</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="provincia"  [options]="provinciaOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="field">
+            <label for="comune" class="block">Comune</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="comune"  [options]="comuneOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="field">
+            <label for="indirizzo" class="block">Indirizzo</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="indirizzo" />
+        </div>
+        <div class="field">
+            <label for="numlocosscem" class="block">Num Loc Oss CEM</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="numlocosscem" />
+        </div>
+        <div class="field">
+            <label for="locosscem" class="block">Local. Oss. CEM</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="locosscem" />
+        </div>
+        <div class="field">
+            <label for="coordinatelong" class="block">Coordinate Longitudine</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="coordinatelong" />
+        </div>
+        <div class="field">
+            <label for="coordinatelat" class="block">Coordinate Latitudine</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="coordinatelat" />
+        </div>
+        <div class="fieldSiNo">
+            <label for="protocollocheck">Protocollo Collegato</label>
+            <div>
+                <span id="si">SI</span>
+                <p-radioButton formControlName="protocollocheck" value="SI" inputId="SI"></p-radioButton>
+            </div>
+            <div>
+                <span id="no">NO</span>
+                <p-radioButton formControlName="protocollocheck" value="NO" inputId="NO"></p-radioButton>
+            </div>
+        </div>
+        <div class="field">
+            <label for="protcoll" class="block">Protocollo</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="protcoll"  [options]="protcollOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="field">
+            <label for="linkcondivisia" class="block">Link Cartella Condivisa</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="linkcondivisia" />
+        </div>
+
+        <div class="actions">
+            <button pButton type="button" label="Cancel" (click)="hideDataDialog()"></button>
+            <button pButton type="submit" label="Submit" [disabled]="dataForm.invalid"></button>
+        </div>
+
+    </form>
+</p-dialog>
+
+<!-- SEÇİLİ SATIRIN DATASINI GÖRÜNTÜLEME POP UPI-->
+<p-dialog  [(visible)]="dataShowDialog" header="Data Details" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [style]="{width: '400px'}" [contentStyle]="{height: '300px'}">
+    <div style="overflow-y: auto;">
+        <table class="vertical-table" width="350px">
+            <tbody>
+            <tr>
+                <td class="numcodsito">Numero Cod Sito</td>
+                <td>{{selectedData?.numcodsito}}</td>
+            </tr>
+            <tr>
+                <td class="numcodsitoold">Numero Cod Sito OLD</td>
+                <td>{{selectedData?.numcodsitoold}}</td>
+            </tr>
+            <tr>
+                <td class="nomesito">Nome Sito</td>
+                <td>{{selectedData?.nomesito}}</td>
+            </tr>
+            <tr>
+                <td class="gestore">Gestore</td>
+                <td>{{selectedData?.gestore}}</td>
+            </tr>
+            <tr>
+                <td class="tipoimpianto">Tipo Impianto</td>
+                <td>{{selectedData?.tipoimpianto}}</td>
+            </tr>
+            <tr>
+                <td class="regione">Regione</td>
+                <td>{{selectedData?.regione}}</td>
+            </tr>
+            <tr>
+                <td class="provincia">Provincia</td>
+                <td>{{selectedData?.provincia}}</td>
+            </tr>
+            <tr>
+                <td class="comune">Comune</td>
+                <td>{{selectedData?.comune}}</td>
+            </tr>
+            <tr>
+                <td class="indirizzo">Indirizzo</td>
+                <td>{{selectedData?.indirizzo}}</td>
+            </tr>
+            <tr>
+                <td class="numlocosscem">Num Loc Oss CEM</td>
+                <td>{{selectedData?.numlocosscem}}</td>
+            </tr>
+            <tr>
+                <td class="locosscem">Local. Oss. CEM</td>
+                <td>{{selectedData?.locosscem}}</td>
+            </tr>
+            <tr>
+                <td class="coordinatelong">Coordinate Longitudine</td>
+                <td>{{selectedData?.coordinatelong}}</td>
+            </tr>
+            <tr>
+                <td class="coordinatelat">Coordinate Latitudine</td>
+                <td>{{selectedData?.coordinatelat}}</td>
+            </tr>
+            <tr>
+                <td class="protocollocheck">Protocollo Collegato</td>
+                <td>{{selectedData?.protocollocheck}}</td>
+            </tr>
+            <tr>
+                <td class="linkcondivisia">Link Cartella Condivisa</td>
+                <td>{{selectedData?.linkcondivisia}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="actions">
+            <button style="width: 120px; height: 30px; background-color: green;margin-top: 20px;"
+                    pButton type="button" label="Export Excel" (click)="selectedExportExcelForOneData()"></button>
+            <button style="width: 80px; height: 30px; background-color: red;margin-top: 20px;"
+                    pButton type="button" label="Cancel" (click)="hideShowDialog()"></button>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

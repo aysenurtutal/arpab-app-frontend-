@@ -50,10 +50,17 @@ p-toolbar.mb-4 .p-toolbar-group-center > * {
   margin-bottom: 1rem;
   width: 100% !important;
 }
+.field > label{
+  font-weight: 600!important;
+}
+.fieldSiNo > label{
+  font-weight: 600!important;
+}
 .fieldSiNo {
   margin-bottom: 1rem;
   width: 100% !important;
-  display: flex;
+  display: grid;
+  grid-template-columns: 25% 15% 20%;
   gap: 2rem;
 }
 .block {
@@ -121,3 +128,12 @@ input {
   margin-right: 10px;
 }
 
+::ng-deep .p-column-filter-row p-columnfilterformelement {
+  width: 120px!important;
+}
+::ng-deep .p-column-filter-row .p-column-filter-clear-button {
+  display: none;
+}
+.custom-table .p-expanded-row {
+  width: inherit; /* inherit width from the table */
+}

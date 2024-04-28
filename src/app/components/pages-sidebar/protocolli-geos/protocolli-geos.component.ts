@@ -140,34 +140,34 @@ export class ProtocolliGeosComponent implements OnInit{
     }
   }
 
-  saveData(){
-    const dtoOut = new ProtocolliGeosDto();
-    dtoOut.senso = this.dataForm.get('senso').value;
-    const dateValue = this.dataForm.get('data').value;
-    if (dateValue == null) {
-      dtoOut.data = null;
-    } else if (dateValue instanceof Date) {
-      const day = String(dateValue.getDate()).padStart(2, '0');
-      const month = String(dateValue.getMonth() + 1).padStart(2, '0');
-      const year = dateValue.getFullYear();
-
-      dtoOut.data = `${year}-${month}-${day}`;
-    }
-
-    dtoOut.protocollo = this.dataForm.get('protocollo').value;
-    dtoOut.autore = this.dataForm.get('autore').value;
-    dtoOut.mittente = this.dataForm.get('mittente').value;
-    dtoOut.destinatario = this.dataForm.get('destinatario').value;
-    dtoOut.oggetto = this.dataForm.get('oggetto').value;
-
-    if(this.newDialog == true){
-      this.protocolliGeosService.postSaveNewProtocolliGeosData(dtoOut).subscribe(() => {
-      })
-    }else if(this.dataDialog== true){
-      this.protocolliGeosService.putUpdatedOneDataProtocolliGeos(this.selectedIdProt, dtoOut).subscribe(() => {
-      })
-    }
-  }
+  // saveData(){
+  //   const dtoOut = new ProtocolliGeosDto();
+  //   dtoOut.senso = this.dataForm.get('senso').value;
+  //   const dateValue = this.dataForm.get('data').value;
+  //   if (dateValue == null) {
+  //     dtoOut.data = null;
+  //   } else if (dateValue instanceof Date) {
+  //     const day = String(dateValue.getDate()).padStart(2, '0');
+  //     const month = String(dateValue.getMonth() + 1).padStart(2, '0');
+  //     const year = dateValue.getFullYear();
+  //
+  //     dtoOut.data = `${year}-${month}-${day}`;
+  //   }
+  //
+  //   dtoOut.protocollo = this.dataForm.get('protocollo').value;
+  //   dtoOut.autore = this.dataForm.get('autore').value;
+  //   dtoOut.mittente = this.dataForm.get('mittente').value;
+  //   dtoOut.destinatario = this.dataForm.get('destinatario').value;
+  //   dtoOut.oggetto = this.dataForm.get('oggetto').value;
+  //
+  //   if(this.newDialog == true){
+  //     this.protocolliGeosService.postSaveNewProtocolliGeosData(dtoOut).subscribe(() => {
+  //     })
+  //   }else if(this.dataDialog== true){
+  //     this.protocolliGeosService.putUpdatedOneDataProtocolliGeos(this.selectedIdProt, dtoOut).subscribe(() => {
+  //     })
+  //   }
+  // }
 
   // exportPdf() {
   //   import('jspdf').then((jspdf) => {

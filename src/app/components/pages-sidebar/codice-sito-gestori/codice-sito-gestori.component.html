@@ -34,7 +34,7 @@
 <p-table #dt [value]="datas" [rows]="10" [paginator]="true" [globalFilterFields]="['numcodsito']"
          [(selection)]="selectedDatas" [rowHover]="true" dataKey="numcodsito" [rowsPerPageOptions]="[10, 25, 50]"
          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
-         [tableStyle]="{ 'min-width': '75rem' }" styleClass="p-datatable-gridlines">
+         [tableStyle]="{ 'min-width': '75rem' }" styleClass="p-datatable-gridlines" class="custom-table">
     <ng-template pTemplate="header">
         <tr style="background-color: blue;">
             <th style="text-align: center;background-color: lightgray">
@@ -224,7 +224,13 @@
         <tr>
             <td colspan="12">
                 <div class="expanded-row">
-                    <strong>Protocollo:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.protcoll }}
+                    <strong>Protocollo:&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                    <ng-container *ngIf="data?.protcoll">
+                <span *ngFor="let protocollo of parseProtcoll(data.protcoll); let last = last">
+                    {{ protocollo }}
+                    <span *ngIf="!last">, </span>
+                </span>
+                    </ng-container>
                 </div>
             </td>
         </tr>
@@ -251,28 +257,36 @@
 <p-dialog [(visible)]="newDialog || dataDialog" [style]="{width: '700px'}" header="Add & Update Data" [modal]="true" [maximizable]="true">
     <form [formGroup]="dataForm" (ngSubmit)="saveData()" novalidate class="form-dialog">
         <div class="field">
-            <label for="numcodsito" class="block">Numero Cod Sito</label>
+            <div style="display:inline-flex">
+                <label for="numcodsito" class="block">Numero Cod Sito</label><strong style="color:red">*</strong>
+            </div>
             <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="numcodsito" />
         </div>
         <div class="field">
-            <label for="numcodsitoold" class="block">Numero Cod Sito OLD</label>
+            <div style="display:inline-flex">
+                <label for="numcodsitoold" class="block">Numero Cod Sito OLD</label><strong style="color:red">*</strong>
+            </div>
             <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="numcodsitoold" />
         </div>
         <div class="field">
-            <label for="nomesito" class="block">Nome Sito</label>
+            <div style="display:inline-flex">
+                <label for="nomesito" class="block">Nome Sito</label><strong style="color:red">*</strong>
+            </div>
             <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="nomesito" />
         </div>
         <div class="field">
-            <label for="gestore" class="block">Gestore</label>
+            <div style="display:inline-flex">
+                <label for="gestore" class="block">Gestore</label><strong style="color:red">*</strong>
+            </div>
             <p-dropdown *ngIf="!isDataReadonly"
                         formControlName="gestore"  [options]="gestoreOptions"
-                        optionLabel="valore" optionValue="valore"
+                        optionLabel="nomegestore" optionValue="nomegestore"
                         [showClear]="true" placeholder="Select">
             </p-dropdown>
         </div>
         <div class="fieldSiNo">
             <label for="tipoimpianto">Tipo Impianto</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="-">-</span>
                 <p-radioButton formControlName="tipoimpianto" value="-" inputId="-"></p-radioButton>
             </div>
@@ -293,7 +307,7 @@
             <label for="regione" class="block">Regione</label>
             <p-dropdown *ngIf="!isDataReadonly"
                         formControlName="regione"  [options]="regioneOptions"
-                        optionLabel="valore" optionValue="valore"
+                        optionLabel="denominazione" optionValue="codice"
                         [showClear]="true" placeholder="Select">
             </p-dropdown>
         </div>
@@ -335,7 +349,7 @@
         </div>
         <div class="fieldSiNo">
             <label for="protocollocheck">Protocollo Collegato</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="si">SI</span>
                 <p-radioButton formControlName="protocollocheck" value="SI" inputId="SI"></p-radioButton>
             </div>
@@ -346,11 +360,10 @@
         </div>
         <div class="field">
             <label for="protcoll" class="block">Protocollo</label>
-            <p-dropdown *ngIf="!isDataReadonly"
+            <p-multiSelect *ngIf="!isDataReadonly"
                         formControlName="protcoll"  [options]="protcollOptions"
-                        optionLabel="valore" optionValue="valore"
-                        [showClear]="true" placeholder="Select">
-            </p-dropdown>
+                        [showClear]="true" placeholder="Select Multiple">
+            </p-multiSelect>
         </div>
         <div class="field">
             <label for="linkcondivisia" class="block">Link Cartella Condivisa</label>

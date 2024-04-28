@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, MessageService} from "primeng/api";
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import {CodiceSitoGestoriService} from "./codice-sito-gestori.service";
@@ -49,7 +49,9 @@ export class CodiceSitoGestoriComponent implements OnInit{
       this.comuneOptions = res;
     })
     this.codiceSitoGestoriService.protcollSelectboxValuesCodiceSitoGestori().subscribe(res => {
-      this.protcollOptions = res;
+      if (res && Array.isArray(res)) {
+        this.protcollOptions = res.filter(item => item.protocollo !== '').map(item => item.protocollo);
+      }
     })
   }
 
@@ -60,13 +62,24 @@ export class CodiceSitoGestoriComponent implements OnInit{
     });
     this.initializeForm();
   }
+  parseProtcoll(protcoll: string): string[] {
+    if (!protcoll) {
+      return [];
+    }
+
+    // Remove backslashes from the string
+    protcoll = protcoll.replace(/\\/g, '');
+
+    // Parse the JSON string into an array
+    return JSON.parse(protcoll);
+  }
 
   initializeForm(): void {
     this.dataForm = this.fb.group({
-      numcodsito: [''],
-      numcodsitoold: [''],
-      nomesito: [''],
-      gestore: [''],
+      numcodsito: ['', Validators.required],
+      numcodsitoold: ['', Validators.required],
+      nomesito: ['', Validators.required],
+      gestore: ['', Validators.required],
       tipoimpianto: [''],
       regione: [''],
       provincia: [''],
@@ -153,6 +166,8 @@ export class CodiceSitoGestoriComponent implements OnInit{
         accept: () => {
           this.codiceSitoGestoriService.deleteSelectedDataCodiceSitoGestori(data.numcodsito).subscribe(() => {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
+            this.confirmationService.close();
+            window.location.reload();
           })
         }
       });
@@ -163,15 +178,37 @@ export class CodiceSitoGestoriComponent implements OnInit{
 
   deleteSelectedDatas() {
     if (this.selectedDatas.length == 1) {
-      const idprot = this.selectedDatas[0].numcodsito;
-      this.codiceSitoGestoriService.deleteSelectedDataCodiceSitoGestori(idprot).subscribe(() => {
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
-      })
+      const numcodsito = this.selectedDatas[0].numcodsito;
+      if(numcodsito){
+        this.confirmationService.confirm({
+          message: 'Are you sure you want to delete?',
+          header: 'Confirm',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+            this.codiceSitoGestoriService.deleteSelectedDataCodiceSitoGestori(numcodsito).subscribe(() => {
+              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
+              this.confirmationService.close();
+              window.location.reload();
+            })
+          }
+        });
+      }
     } else if(this.selectedDatas.length > 1){
-      const idprots = this.selectedDatas.map(data => data.numcodsito);
-      this.codiceSitoGestoriService.deletemultipleSelectedDatasCodiceSitoGestori(idprots).subscribe(() => {
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
-      });
+      const numcodsitos = this.selectedDatas.map(data => data.numcodsito);
+      if(numcodsitos.length > 1){
+        this.confirmationService.confirm({
+          message: 'Are you sure you want to delete?',
+          header: 'Confirm',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+            this.codiceSitoGestoriService.deletemultipleSelectedDatasCodiceSitoGestori(numcodsitos).subscribe(() => {
+              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
+              this.confirmationService.close();
+              window.location.reload();
+            });
+          }
+        });
+      }
     }else{
       console.log('Please select rows to be deleted!');
     }
@@ -195,12 +232,30 @@ export class CodiceSitoGestoriComponent implements OnInit{
     dtoOut.protocollocheck = this.dataForm.get('protocollocheck').value;
     dtoOut.protcoll = this.dataForm.get('protcoll').value;
     dtoOut.linkcondivisia = this.dataForm.get('linkcondivisia').value;
-    if(this.newDialog == true){
-      this.codiceSitoGestoriService.postSaveNewCodiceSitoGestoriData(dtoOut).subscribe(() => {
-      })
-    }else if(this.dataDialog== true){
-      this.codiceSitoGestoriService.putUpdatedOneDataCodiceSitoGestori(this.selectedIdProt, dtoOut).subscribe(() => {
-      })
+    if( dtoOut.numcodsito && dtoOut.numcodsitoold && dtoOut.nomesito && dtoOut.gestore){
+      if(this.newDialog == true){
+        this.codiceSitoGestoriService.postSaveNewCodiceSitoGestoriData(dtoOut).subscribe((res) => {
+          if(res){
+            // status code will be added acc to be response
+            this.hideDataDialog();
+            window.location.reload();
+          }else{
+            console.log('there is an error while posting')
+          }
+        })
+      }else if(this.dataDialog== true){
+        this.codiceSitoGestoriService.putUpdatedOneDataCodiceSitoGestori(this.selectedIdProt, dtoOut).subscribe((res) => {
+          if(res){
+            // status code will be added acc to be response
+            this.hideDataDialog();
+            window.location.reload();
+          }else{
+            console.log('there is an error while updating')
+          }
+        })
+      }
+    }else{
+      console.log('pls enter required values')
     }
   }
 

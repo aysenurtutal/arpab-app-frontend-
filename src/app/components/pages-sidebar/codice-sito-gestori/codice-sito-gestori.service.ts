@@ -19,20 +19,22 @@ export class CodiceSitoGestoriService {
         .pipe(map((m) => m.data));
   }
   postSaveNewCodiceSitoGestoriData(dtoOut: CodiceSitoGestoriDto): Observable<CodiceSitoGestoriDto> {
-    const networkUrl = this._portalApiRoot + `codicesitogestoriAll`;
-    return this.http.post<CodiceSitoGestoriDto>(networkUrl, dtoOut);
+    const networkUrl = this._portalApiRoot + `codicesitogestori`;
+    return this.http.post<CodiceSitoGestoriDto>(networkUrl, {fields:dtoOut});
   }
-  putUpdatedOneDataCodiceSitoGestori(idprot: number, dtoOut: CodiceSitoGestoriDto): Observable<CodiceSitoGestoriDto> {
-    const networkUrl = `${this._portalApiRoot}codicesitogestori?idprot=${idprot}`;
-    return this.http.put<CodiceSitoGestoriDto>(networkUrl, dtoOut);
+  putUpdatedOneDataCodiceSitoGestori(numcodsito: any, dtoOut: CodiceSitoGestoriDto): Observable<CodiceSitoGestoriDto> {
+    const networkUrl = `${this._portalApiRoot}codicesitogestori?numcodsito=${numcodsito}`;
+    return this.http.put<CodiceSitoGestoriDto>(networkUrl, {fields:dtoOut});
   }
-  deleteSelectedDataCodiceSitoGestori(idprot: any): Observable<any> {
-    const networkUrl = `${this._portalApiRoot}codicesitogestori/single?idprot=${idprot}`;
+  deleteSelectedDataCodiceSitoGestori(numcodsito: any): Observable<any> {
+    const primaryKey = 'numcodsito';
+    const networkUrl = `${this._portalApiRoot}codicesitogestori/single?primaryKey=${primaryKey}&primaryKeyValue=${numcodsito}`;
     return this.http.delete<any>(networkUrl, {});
   }
-  deletemultipleSelectedDatasCodiceSitoGestori(idprots: number[]): Observable<any> {
-    const networkUrl = `${this._portalApiRoot}codicesitogestori/multiple`;
-    return this.http.delete<any>(networkUrl, { body: idprots });
+  deletemultipleSelectedDatasCodiceSitoGestori(numcodsitos: number[]): Observable<any> {
+    const primaryKey = 'numcodsito';
+    const networkUrl = `${this._portalApiRoot}codicesitogestori/multiple?primaryKey=${primaryKey}`;
+    return this.http.delete<any>(networkUrl, { body: numcodsitos});
   }
   gestoreSelectboxValuesCodiceSitoGestori(): Observable<any>{
     const networkUrl = this._portalApiRoot + `codicesitogestori/gestore`;
@@ -59,7 +61,7 @@ export class CodiceSitoGestoriService {
         .pipe(map((m) => m.data));
   }
   protcollSelectboxValuesCodiceSitoGestori(): Observable<any>{
-    const networkUrl = this._portalApiRoot + `codicesitogestori/protcoll`;
+    const networkUrl = this._portalApiRoot + `protocollocem/protocolli`;
     return this.http
         .get<BaseResponse<any[]>>(networkUrl)
         .pipe(map((m) => m.data));

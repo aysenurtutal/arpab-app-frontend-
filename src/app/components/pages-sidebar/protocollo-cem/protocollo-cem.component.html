@@ -34,7 +34,7 @@
 <p-table #dt [value]="datas" [rows]="10" [paginator]="true" [globalFilterFields]="['protocollo']"
          [(selection)]="selectedDatas" [rowHover]="true" dataKey="idprot" [rowsPerPageOptions]="[10, 25, 50]"
          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
-         [tableStyle]="{ 'min-width': '75rem' }" styleClass="p-datatable-gridlines">
+         [tableStyle]="{ 'min-width': '75rem' }" styleClass="p-datatable-gridlines" class="custom-table">
     <ng-template pTemplate="header">
         <tr style="background-color: blue;">
             <th style="text-align: center;background-color: lightgray">
@@ -248,7 +248,12 @@
                 {{data?.oggetto}}
             </td>
             <td style="text-align: center;">
-                {{data?.subassegnazione}}
+                <ng-container *ngIf="data?.subassegnazione">
+                <span *ngFor="let subassegnazione of parseDataFields(data.subassegnazione); let last = last">
+                    {{ subassegnazione }}
+                    <span *ngIf="!last">, </span>
+                </span>
+                </ng-container>
             </td>
             <td style="text-align: center;">
                 {{data?.note}}
@@ -314,14 +319,26 @@
         <tr>
             <td colspan="12">
                 <div class="expanded-row">
-                    <strong>Num. Prot. Coll.:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.numprotcoll }}
+                    <strong>Num. Prot. Coll.:&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                    <ng-container *ngIf="data?.numprotcoll">
+                        <span *ngFor="let numprotcoll of parseDataFields(data.numprotcoll); let last = last">
+                            {{ numprotcoll }}
+                            <span *ngIf="!last">, </span>
+                        </span>
+                    </ng-container>
                 </div>
             </td>
         </tr>
         <tr>
             <td colspan="12">
                 <div class="expanded-row">
-                    <strong>Azione:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.azione }}
+                    <strong>Azione:&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                    <ng-container *ngIf="data?.azione">
+                        <span *ngFor="let azione of parseDataFields(data.azione); let last = last">
+                            {{ azione }}
+                            <span *ngIf="!last">, </span>
+                        </span>
+                    </ng-container>
                 </div>
             </td>
         </tr>
@@ -335,14 +352,26 @@
         <tr>
             <td colspan="12">
                 <div class="expanded-row">
-                    <strong>Protocollo di Riferimento:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.protriferime }}
+                    <strong>Protocollo di Riferimento:&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                    <ng-container *ngIf="data?.protriferime">
+                        <span *ngFor="let protriferime of parseDataFields(data.protriferime); let last = last">
+                            {{ protriferime }}
+                            <span *ngIf="!last">, </span>
+                        </span>
+                    </ng-container>
                 </div>
             </td>
         </tr>
         <tr>
             <td colspan="12">
                 <div class="expanded-row">
-                    <strong>Numero Cod Sito:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.numcodsito }}
+                    <strong>Numero Cod Sito:&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                    <ng-container *ngIf="data?.numcodsito">
+                        <span *ngFor="let numcodsito of parseDataFields(data.numcodsito); let last = last">
+                            {{ numcodsito }}
+                            <span *ngIf="!last">, </span>
+                        </span>
+                    </ng-container>
                 </div>
             </td>
         </tr>
@@ -373,7 +402,9 @@
             <p-calendar *ngIf="!isDataReadonly" formControlName="data" dateFormat="dd-mm-yy" [showIcon]="true" ></p-calendar>
         </div>
         <div class="field">
-            <label for="protocollo" class="block">Protocollo</label>
+            <div style="display:inline-flex">
+                <label for="protocollo" class="block">Protocollo</label><strong style="color:red">*</strong>
+            </div>
             <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="protocollo" />
         </div>
         <div class="field">
@@ -394,7 +425,7 @@
         </div>
         <div class="fieldSiNo">
             <label for="protcollegato">Protocollo Collegato</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="si">SI</span>
                 <p-radioButton formControlName="protcollegato" value="SI" inputId="SI"></p-radioButton>
             </div>
@@ -406,14 +437,13 @@
 
         <div class="field">
             <label for="numprotcoll" class="block">Num. Prot. Coll.</label>
-            <p-dropdown *ngIf="!isDataReadonly"
+            <p-multiSelect *ngIf="!isDataReadonly"
                         formControlName="numprotcoll"  [options]="numprotcollOptions"
-                        optionLabel="protocollo" optionValue="protocollo"
-                        [showClear]="true" placeholder="Select"></p-dropdown>
+                           [showClear]="true" placeholder="Select Multiple"></p-multiSelect>
         </div>
         <div class="fieldSiNo">
             <label for="riscontrogeos" class="block">Riscontro GEOS</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="DTS">DTS</span>
                 <p-radioButton formControlName="riscontrogeos" value="DTS" inputId="DTS"></p-radioButton>
             </div>
@@ -428,10 +458,9 @@
         </div>
         <div class="field">
             <label for="subassegnazione" class="block">Subassegnazione</label>
-            <p-dropdown *ngIf="!isDataReadonly"
+            <p-multiSelect *ngIf="!isDataReadonly"
                         formControlName="subassegnazione"  [options]="subassegnazioneOptions"
-                        optionLabel="nomeoperatore" optionValue="nomeoperatore"
-                        [showClear]="true" placeholder="Select"></p-dropdown>
+                        [showClear]="true" placeholder="Select Multiple"></p-multiSelect>
         </div>
         <div class="field">
             <label for="note" class="block">Note</label>
@@ -460,14 +489,13 @@
         </div>
         <div class="field">
             <label for="azione" class="block">Azione</label>
-            <p-dropdown *ngIf="!isDataReadonly"
+            <p-multiSelect *ngIf="!isDataReadonly"
                         formControlName="azione"  [options]="azioneOptions"
-                        optionLabel="valoretemrum" optionValue="valoretemrum"
-                        [showClear]="true" placeholder="Select"></p-dropdown>
+                        [showClear]="true" placeholder="Select Multiple"></p-multiSelect>
         </div>
         <div class="fieldSiNo">
             <label for="azionedup">Azione Duplicata</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="si">SI</span>
                 <p-radioButton formControlName="azionedup" value="SI" inputId="SI"></p-radioButton>
             </div>
@@ -478,15 +506,14 @@
         </div>
         <div class="field">
             <label for="protriferime" class="block">Protocollo Di Riferimento</label>
-            <p-dropdown *ngIf="!isDataReadonly"
+            <p-multiSelect *ngIf="!isDataReadonly"
                         formControlName="protriferime" [options]="protriferimeOptions"
-                        optionLabel="valoretemrum" optionValue="valoretemrum"
-                        [showClear]="true" placeholder="Select"></p-dropdown>
+                        [showClear]="true" placeholder="Select Multiple"></p-multiSelect>
         </div>
 
         <div class="fieldSiNo">
             <label for="aie">AIE</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="si">SI</span>
                 <p-radioButton formControlName="aie" value="SI" inputId="SI"></p-radioButton>
             </div>
@@ -497,7 +524,7 @@
         </div>
         <div class="fieldSiNo">
             <label for="congiunta">Congiunta</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="si">SI</span>
                 <p-radioButton formControlName="congiunta" value="SI" inputId="SI"></p-radioButton>
             </div>
@@ -508,7 +535,7 @@
         </div>
         <div class="fieldSiNo">
             <label for="simulazione">Simulazione</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="si">SI</span>
                 <p-radioButton formControlName="simulazione" value="SI" inputId="SI"></p-radioButton>
             </div>
@@ -519,10 +546,9 @@
         </div>
         <div class="field">
             <label for="numcodsito" class="block">Numero Cod Sito</label>
-            <p-dropdown *ngIf="!isDataReadonly"
+            <p-multiSelect *ngIf="!isDataReadonly"
                         formControlName="numcodsito"  [options]="numcodsitoOptions"
-                        optionLabel="numcodsito" optionValue="numcodsito"
-                        [showClear]="true" placeholder="Select"></p-dropdown>
+                        [showClear]="true" placeholder="Select Multiple"></p-multiSelect>
         </div>
         <div class="field">
             <label for="statoimpianto" class="block">Statoimpianto</label>
@@ -557,7 +583,7 @@
 
         <div class="fieldSiNo">
             <label for="notadigos">Notadigos</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="si">SI</span>
                 <p-radioButton formControlName="notadigos" value="SI" inputId="SI"></p-radioButton>
             </div>
@@ -568,7 +594,7 @@
         </div>
         <div class="fieldSiNo">
             <label for="dirigente">Dirigente</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="lavorato">LAVORATO</span>
                 <p-radioButton formControlName="dirigente" value="LAVORATO" inputId="LAVORATO"></p-radioButton>
             </div>
@@ -579,7 +605,7 @@
         </div>
         <div class="fieldSiNo">
             <label for="funzionario">Funzionario</label>
-            <div>
+            <div style="padding-left: 10px;">
                 <span id="lavorato">LAVORATO</span>
                 <p-radioButton formControlName="funzionario" value="LAVORATO" inputId="LAVORATO"></p-radioButton>
             </div>

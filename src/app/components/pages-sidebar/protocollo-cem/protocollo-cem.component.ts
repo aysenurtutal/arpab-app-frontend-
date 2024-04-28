@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, MessageService} from "primeng/api";
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import {ProtocolloCemService} from "./protocollo-cem.service";
@@ -46,8 +46,11 @@ export class ProtocolloCemComponent implements OnInit{
     })
 
     this.protocolloCemService.numprotcollSelectboxValuesProtocolloCem().subscribe(res => {
-      this.numprotcollOptions = res;
-      this.protriferimeOptions = this.numprotcollOptions;
+      if (res && Array.isArray(res)) {
+        this.numprotcollOptions = res.filter(item => item.protocollo !== '').map(item => item.protocollo);
+        console.log(this.numprotcollOptions)
+        this.protriferimeOptions = this.numprotcollOptions;
+      }
     })
 
     this.protocolloCemService.tematicaSelectboxValuesProtocolloCem().subscribe(res => {
@@ -60,11 +63,17 @@ export class ProtocolloCemComponent implements OnInit{
       this.sottocategoriaOptions = res;
     })
     this.protocolloCemService.azioneSelectboxValuesProtocolloCem().subscribe(res => {
-      this.azioneOptions = res;
+      if (res && Array.isArray(res)) {
+        this.azioneOptions = res.filter(item => item.valoretemrum !== '').map(item => item.valoretemrum);
+        console.log(this.azioneOptions)
+      }
     })
 
     this.protocolloCemService.subassegnazioneSelectboxValuesProtocolloCem().subscribe(res => {
-      this.subassegnazioneOptions = res;
+      if (res && Array.isArray(res)) {
+        this.subassegnazioneOptions = res.filter(item => item.nomeoperatore !== '').map(item => item.nomeoperatore);
+        console.log(this.subassegnazioneOptions)
+      }
     })
 
     this.protocolloCemService.statoimpiantoSelectboxValuesProtocolloCem().subscribe(res => {
@@ -75,9 +84,11 @@ export class ProtocolloCemComponent implements OnInit{
     })
 
     this.protocolloCemService.numcodsitoSelectboxValuesProtocolloCem().subscribe(res => {
-      this.numcodsitoOptions = res;
+      if (res && Array.isArray(res)) {
+        this.numcodsitoOptions = res.filter(item => item.numcodsito !== '').map(item => item.numcodsito);
+        console.log(this.numcodsitoOptions)
+      }
     })
-
 
     // NOW BELOW PART USED FOR PROTRIFERIMEOPTIONS, WHAT IS THE CORRECT ONE?
     // this.protriferimeOptions = this.numprotcollOptions;
@@ -95,13 +106,23 @@ export class ProtocolloCemComponent implements OnInit{
     });
     this.initializeForm();
   }
+  parseDataFields(dataField: string): string[] {
+    if (!dataField) {
+      return [];
+    }
 
+    // Remove backslashes from the string
+    dataField = dataField.replace(/\\/g, '');
+
+    // Parse the JSON string into an array
+    return JSON.parse(dataField);
+  }
   initializeForm(): void {
     this.dataForm = this.fb.group({
       idprot: [''],
       senso: [''],
       data: [''],
-      protocollo: [''],
+      protocollo: ['', Validators.required],
       autore: [''],
       mittente: [''],
       destinatario: [''],
@@ -239,6 +260,8 @@ export class ProtocolloCemComponent implements OnInit{
         accept: () => {
           this.protocolloCemService.deleteSelectedDataProtocolloCem(data.idprot).subscribe(() => {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
+            this.confirmationService.close();
+            window.location.reload();
           })
         }
       });
@@ -250,14 +273,36 @@ export class ProtocolloCemComponent implements OnInit{
   deleteSelectedDatas() {
     if (this.selectedDatas.length == 1) {
       const idprot = this.selectedDatas[0].idprot;
-      this.protocolloCemService.deleteSelectedDataProtocolloCem(idprot).subscribe(() => {
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
-      })
+      if(idprot){
+        this.confirmationService.confirm({
+          message: 'Are you sure you want to delete?',
+          header: 'Confirm',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+            this.protocolloCemService.deleteSelectedDataProtocolloCem(idprot).subscribe(() => {
+              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
+              this.confirmationService.close();
+              window.location.reload();
+            })
+          }
+        });
+      }
     } else if(this.selectedDatas.length > 1){
       const idprots = this.selectedDatas.map(data => data.idprot);
-      this.protocolloCemService.deletemultipleSelectedDatasProtocolloCem(idprots).subscribe(() => {
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
-      });
+      if(idprots.length > 1){
+        this.confirmationService.confirm({
+          message: 'Are you sure you want to delete?',
+          header: 'Confirm',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+            this.protocolloCemService.deletemultipleSelectedDatasProtocolloCem(idprots).subscribe(() => {
+              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Data Deleted', life: 3000 });
+              this.confirmationService.close();
+              window.location.reload();
+            });
+          }
+        });
+      }
     }else{
       console.log('Please select rows to be deleted!');
     }
@@ -267,7 +312,7 @@ export class ProtocolloCemComponent implements OnInit{
     const dtoOut = new ProtocolloCemDto();
     dtoOut.senso = this.dataForm.get('senso').value;
     const dateValue = this.dataForm.get('data').value;
-    if (dateValue == null) {
+    if (dateValue == '' || dateValue == null) {
       dtoOut.data = null;
     } else if (dateValue instanceof Date) {
       const day = String(dateValue.getDate()).padStart(2, '0');
@@ -301,7 +346,7 @@ export class ProtocolloCemComponent implements OnInit{
     dtoOut.statoprocedura = this.dataForm.get('statoprocedura').value;
 
     const dateValueScadenza = this.dataForm.get('scadenza').value;
-    if (dateValueScadenza == null) {
+    if (dateValueScadenza == '' || dateValueScadenza == null) {
       dtoOut.scadenza = null;
     } else if (dateValueScadenza instanceof Date) {
       const day = String(dateValueScadenza.getDate()).padStart(2, '0');
@@ -312,7 +357,7 @@ export class ProtocolloCemComponent implements OnInit{
     }
 
     const dateValueScadenza2 = this.dataForm.get('scadenza2').value;
-    if (dateValueScadenza2 == null) {
+    if (dateValueScadenza2 == '' || dateValueScadenza2 == null) {
       dtoOut.scadenza2 = null;
     } else if (dateValueScadenza2 instanceof Date) {
       const day = String(dateValueScadenza2.getDate()).padStart(2, '0');
@@ -323,7 +368,7 @@ export class ProtocolloCemComponent implements OnInit{
     }
 
     const dateValueCdsdata = this.dataForm.get('cdsdata').value;
-    if (dateValueCdsdata == null) {
+    if (dateValueCdsdata == '' || dateValueCdsdata == null) {
       dtoOut.cdsdata = null;
     } else if (dateValueCdsdata instanceof Date) {
       const day = String(dateValueCdsdata.getDate()).padStart(2, '0');
@@ -338,13 +383,32 @@ export class ProtocolloCemComponent implements OnInit{
     dtoOut.dirigente = this.dataForm.get('dirigente').value;
     dtoOut.funzionario = this.dataForm.get('funzionario').value;
     dtoOut.commriscontro = this.dataForm.get('commriscontro').value;
-    if(this.newDialog == true){
-      this.protocolloCemService.postSaveNewProtocolloCemData(dtoOut).subscribe(() => {
-      })
-    }else if(this.dataDialog== true){
-      this.protocolloCemService.putUpdatedOneDataProtocolloCem(this.selectedIdProt, dtoOut).subscribe(() => {
-      })
+    if(dtoOut.protocollo){
+      if(this.newDialog == true){
+        this.protocolloCemService.postSaveNewProtocolloCemData(dtoOut).subscribe((res) => {
+          if(res){
+            // status code will be added acc to be response
+            this.hideDataDialog();
+            window.location.reload();
+          }else{
+            console.log('there is an error while posting')
+          }
+        })
+      }else if(this.dataDialog== true){
+        this.protocolloCemService.putUpdatedOneDataProtocolloCem(this.selectedIdProt, dtoOut).subscribe((res) => {
+          if(res){
+            // status code will be added acc to be response
+            this.hideDataDialog();
+            window.location.reload();
+          }else{
+            console.log('there is an error while updating')
+          }
+        })
+      }
+    }else{
+      console.log('pls enter protocollo values')
     }
+
   }
 
   // exportPdf() {

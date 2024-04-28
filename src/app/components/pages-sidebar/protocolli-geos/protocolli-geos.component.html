@@ -6,10 +6,10 @@
 </div>
 
 <p-toolbar styleClass="mb-4" class="col-12">
-    <ng-template pTemplate="left">
-        <button pButton pRipple label="AGGIUNGI NUOVO" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNewData()"></button>
-        <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedDatas()" [disabled]="!selectedDatas || !selectedDatas.length"></button>
-    </ng-template>
+<!--    <ng-template pTemplate="left">-->
+<!--        <button pButton pRipple label="AGGIUNGI NUOVO" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNewData()"></button>-->
+<!--        <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedDatas()" [disabled]="!selectedDatas || !selectedDatas.length"></button>-->
+<!--    </ng-template>-->
 
     <ng-template pTemplate="center">
         <div class="search-container">
@@ -34,14 +34,14 @@
 <p-table #dt [value]="datas" [rows]="10" [paginator]="true" [globalFilterFields]="['idprot']"
          [(selection)]="selectedDatas" [rowHover]="true" dataKey="idprot" [rowsPerPageOptions]="[10, 25, 50]"
          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
-         [tableStyle]="{ 'min-width': '75rem' }" styleClass="p-datatable-gridlines">
+         [tableStyle]="{ 'min-width': '75rem' }" styleClass="p-datatable-gridlines" class="custom-table">
     <ng-template pTemplate="header">
         <tr style="background-color: blue;">
-            <th style="text-align: center;background-color: lightgray">
-            </th>
-            <th style="text-align: center;background-color: lightgray">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
+<!--            <th style="text-align: center;background-color: lightgray">-->
+<!--            </th>-->
+<!--            <th style="text-align: center;background-color: lightgray">-->
+<!--                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>-->
+<!--            </th>-->
             <th style="text-align: center;background-color: lightgray">
                 <p style="display: inline-flex">
                     <a style="color: lightgray">.........</a>
@@ -75,8 +75,8 @@
             </th>
         </tr>
         <tr>
-            <th style="background-color: lightgray"></th>
-            <th style="background-color: lightgray"></th>
+<!--            <th style="background-color: lightgray"></th>-->
+<!--            <th style="background-color: lightgray"></th>-->
             <th style="background-color: lightgray"></th>
             <th style="background-color: lightgray">
                 <p-columnFilter type="text" field="idprot"></p-columnFilter>
@@ -111,16 +111,16 @@
     </ng-template>
     <ng-template pTemplate="body" let-data>
         <tr>
-            <td style="text-align: center;">
-                <button type="button" pButton pRipple [pRowToggler]="data" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-            </td>
-            <td style="text-align: center;"> <!-- Center align data -->
-                <p-tableCheckbox [value]="data"></p-tableCheckbox>
-            </td>
+<!--            <td style="text-align: center;">-->
+<!--                <button type="button" pButton pRipple [pRowToggler]="data" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>-->
+<!--            </td>-->
+<!--            <td style="text-align: center;"> &lt;!&ndash; Center align data &ndash;&gt;-->
+<!--                <p-tableCheckbox [value]="data"></p-tableCheckbox>-->
+<!--            </td>-->
             <td style="text-align: center;">
                 <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-primary mr-2" (click)="showData(data)"></button>
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editData(data)"></button>
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteData(data)"></button>
+<!--                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editData(data)"></button>-->
+<!--                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteData(data)"></button>-->
             </td>
             <td style="text-align: center;">
                 {{data?.idprot}}
@@ -149,6 +149,50 @@
         </tr>
     </ng-template>
 
+<!--    <ng-template pTemplate="rowexpansion" let-data>-->
+<!--        <tr>-->
+<!--            <td colspan="12">-->
+<!--                <div class="expanded-row">-->
+<!--                    <strong>Protocollo Collegato:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.protcollegato }}-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td colspan="12">-->
+<!--                <div class="expanded-row">-->
+<!--                    <strong>Num. Prot. Coll.:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.numprotcoll }}-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td colspan="12">-->
+<!--                <div class="expanded-row">-->
+<!--                    <strong>Azione:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.azione }}-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td colspan="12">-->
+<!--                <div class="expanded-row">-->
+<!--                    <strong>Azione Duplicata:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.azionedup }}-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td colspan="12">-->
+<!--                <div class="expanded-row">-->
+<!--                    <strong>Protocollo di Riferimento:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.protriferime }}-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td colspan="12">-->
+<!--                <div class="expanded-row">-->
+<!--                    <strong>Numero Cod Sito:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.numcodsito }}-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </ng-template>-->
     <ng-template pTemplate="summary">
         <div class="flex align-items-center justify-content-between">
             In total there are {{datas ? datas.length : 0 }} datas.
@@ -158,49 +202,49 @@
 </p-table>
 </div>
 
-<!-- FORM POPUP KISMI-->
-<p-dialog [(visible)]="newDialog || dataDialog" [style]="{width: '700px'}" header="Add & Update Data" [modal]="true" [maximizable]="true">
-    <form [formGroup]="dataForm" (ngSubmit)="saveData()" novalidate class="form-dialog">
-        <div class="field">
-            <label for="senso" class="block">Senso</label>
-            <p-dropdown *ngIf="!isDataReadonly"
-                        formControlName="senso"  [options]="sensoOptions"
-                        optionLabel="valore" optionValue="valore"
-                        [showClear]="true" placeholder="Select">
-            </p-dropdown>
-        </div>
-        <div class="field">
-            <label for="data" class="block">Data</label>
-            <p-calendar *ngIf="!isDataReadonly" formControlName="data" dateFormat="dd-mm-yy" [showIcon]="true" ></p-calendar>
-        </div>
-        <div class="field">
-            <label for="protocollo" class="block">Protocollo</label>
-            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="protocollo" />
-        </div>
-        <div class="field">
-            <label for="autore" class="block">Autore</label>
-            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="autore" />
-        </div>
-        <div class="field">
-            <label for="mittente" class="block">Mittente</label>
-            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="mittente" />
-        </div>
-        <div class="field">
-            <label for="destinatario" class="block">Destinatario</label>
-            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="destinatario" />
-        </div>
-        <div class="field">
-            <label for="oggetto" class="block">Oggetto</label>
-            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="oggetto" />
-        </div>
+<!--&lt;!&ndash; FORM POPUP KISMI&ndash;&gt;-->
+<!--<p-dialog [(visible)]="newDialog || dataDialog" [style]="{width: '700px'}" header="Add & Update Data" [modal]="true" [maximizable]="true">-->
+<!--    <form [formGroup]="dataForm" (ngSubmit)="saveData()" novalidate class="form-dialog">-->
+<!--        <div class="field">-->
+<!--            <label for="senso" class="block">Senso</label>-->
+<!--            <p-dropdown *ngIf="!isDataReadonly"-->
+<!--                        formControlName="senso"  [options]="sensoOptions"-->
+<!--                        optionLabel="valore" optionValue="valore"-->
+<!--                        [showClear]="true" placeholder="Select">-->
+<!--            </p-dropdown>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--            <label for="data" class="block">Data</label>-->
+<!--            <p-calendar *ngIf="!isDataReadonly" formControlName="data" dateFormat="dd-mm-yy" [showIcon]="true" ></p-calendar>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--            <label for="protocollo" class="block">Protocollo</label>-->
+<!--            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="protocollo" />-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--            <label for="autore" class="block">Autore</label>-->
+<!--            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="autore" />-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--            <label for="mittente" class="block">Mittente</label>-->
+<!--            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="mittente" />-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--            <label for="destinatario" class="block">Destinatario</label>-->
+<!--            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="destinatario" />-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--            <label for="oggetto" class="block">Oggetto</label>-->
+<!--            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="oggetto" />-->
+<!--        </div>-->
 
-        <div class="actions">
-            <button pButton type="button" label="Cancel" (click)="hideDataDialog()"></button>
-            <button pButton type="submit" label="Submit" [disabled]="dataForm.invalid"></button>
-        </div>
+<!--        <div class="actions">-->
+<!--            <button pButton type="button" label="Cancel" (click)="hideDataDialog()"></button>-->
+<!--            <button pButton type="submit" label="Submit" [disabled]="dataForm.invalid"></button>-->
+<!--        </div>-->
 
-    </form>
-</p-dialog>
+<!--    </form>-->
+<!--</p-dialog>-->
 
 <!-- SEÇİLİ SATIRIN DATASINI GÖRÜNTÜLEME POP UPI-->
 <p-dialog  [(visible)]="dataShowDialog" header="Data Details" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [style]="{width: '400px'}" [contentStyle]="{height: '300px'}">

@@ -12,19 +12,19 @@ export class ProtocolliGeosService {
   constructor(private http: HttpClient) { }
 
   getProtocolliGeos(): Observable<ProtocolliGeosDto[]> {
-    const networkUrl = this._portalApiRoot + `protocolligeos`;
+    const networkUrl = this._portalApiRoot + `protocollocem`;
     return this.http
         .get<BaseResponse<ProtocolliGeosDto[]>>(networkUrl)
         .pipe(map((m) => m.data));
   }
-  postSaveNewProtocolliGeosData(dtoOut: ProtocolliGeosDto): Observable<ProtocolliGeosDto> {
-    const networkUrl = this._portalApiRoot + `protocolligeos`;
-    return this.http.post<ProtocolliGeosDto>(networkUrl, dtoOut);
-  }
-  putUpdatedOneDataProtocolliGeos(idprot: number, dtoOut: ProtocolliGeosDto): Observable<ProtocolliGeosDto> {
-    const networkUrl = `${this._portalApiRoot}protocolligeos?idprot=${idprot}`;
-    return this.http.put<ProtocolliGeosDto>(networkUrl, dtoOut);
-  }
+  // postSaveNewProtocolliGeosData(dtoOut: ProtocolliGeosDto): Observable<ProtocolliGeosDto> {
+  //   const networkUrl = this._portalApiRoot + `protocolligeos`;
+  //   return this.http.post<ProtocolliGeosDto>(networkUrl, dtoOut);
+  // }
+  // putUpdatedOneDataProtocolliGeos(idprot: number, dtoOut: ProtocolliGeosDto): Observable<ProtocolliGeosDto> {
+  //   const networkUrl = `${this._portalApiRoot}protocolligeos?idprot=${idprot}`;
+  //   return this.http.put<ProtocolliGeosDto>(networkUrl, dtoOut);
+  // }
   deleteSelectedDataProtocolliGeos(idprot: any): Observable<any> {
     const networkUrl = `${this._portalApiRoot}protocolligeos/single?idprot=${idprot}`;
     return this.http.delete<any>(networkUrl, {});
@@ -35,7 +35,7 @@ export class ProtocolliGeosService {
   }
 
   sensoSelectboxValuesProtocolliGeos(): Observable<any>{
-    const networkUrl = `${this._portalApiRoot}protocolligeos/senso`;
+    const networkUrl = this._portalApiRoot + `senso`;
     return this.http
         .get<BaseResponse<any[]>>(networkUrl)
         .pipe(map((m) => m.data));

@@ -49,12 +49,29 @@ p-toolbar.mb-4 .p-toolbar-group-center > * {
 .field {
   margin-bottom: 1rem;
   width: 100% !important;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  padding-top: 10px;
+}
+.field > label{
+  font-weight: 600!important;
+}
+.field > div > label{
+  font-weight: 600!important;
+  padding-right: 5px;
+}
+.fieldSiNo > label{
+  font-weight: 600!important;
 }
 .fieldSiNo {
   margin-bottom: 1rem;
   width: 100% !important;
-  display: flex;
+  display: grid;
+  grid-template-columns: 25% 22% 22% 22%;
   gap: 2rem;
+}
+.fieldSiNo > div > span {
+  padding-right: 10px;
 }
 .block {
   display: block;
@@ -121,3 +138,13 @@ input {
   margin-right: 10px;
 }
 
+
+::ng-deep .p-column-filter-row p-columnfilterformelement {
+  width: 120px!important;
+}
+::ng-deep .p-column-filter-row .p-column-filter-clear-button {
+  display: none;
+}
+.expanded-row {
+  width: inherit; /* inherit width from the table */
+}

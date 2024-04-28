@@ -21,19 +21,21 @@ export class ProtocolloCemService {
   }
   postSaveNewProtocolloCemData(dtoOut: ProtocolloCemDto): Observable<ProtocolloCemDto> {
     const networkUrl = this._portalApiRoot + `protocollocem`;
-    return this.http.post<ProtocolloCemDto>(networkUrl, dtoOut);
+    return this.http.post<ProtocolloCemDto>(networkUrl,{fields:dtoOut});
   }
-  putUpdatedOneDataProtocolloCem(idprot: number, dtoOut: ProtocolloCemDto): Observable<ProtocolloCemDto> {
-    const networkUrl = `${this._portalApiRoot}protocollocem?idprot=${idprot}`;
-    return this.http.put<ProtocolloCemDto>(networkUrl, dtoOut);
+  putUpdatedOneDataProtocolloCem(idField: number, dtoOut: ProtocolloCemDto): Observable<ProtocolloCemDto> {
+    const networkUrl = `${this._portalApiRoot}protocollocem?idField=${idField}`;
+    return this.http.put<ProtocolloCemDto>(networkUrl, {fields:dtoOut});
   }
-  deleteSelectedDataProtocolloCem(idprot: any): Observable<any> {
-    const networkUrl = `${this._portalApiRoot}protocollocem/single?idprot=${idprot}`;
-    return this.http.delete<any>(networkUrl, {});
+  deleteSelectedDataProtocolloCem(idField: any): Observable<any> {
+    const primaryKey = 'idprot';
+    const networkUrl = `${this._portalApiRoot}protocollocem/single?primaryKey=${primaryKey}&primaryKeyValue=${idField}`;
+    return this.http.delete<any>(networkUrl);
   }
-  deletemultipleSelectedDatasProtocolloCem(idprots: number[]): Observable<any> {
-    const networkUrl = `${this._portalApiRoot}protocollocem/multiple`;
-    return this.http.delete<any>(networkUrl, { body: idprots });
+  deletemultipleSelectedDatasProtocolloCem(idFields: number[]): Observable<any> {
+    const primaryKey = 'idprot';
+    const networkUrl = `${this._portalApiRoot}protocollocem/multiple?primaryKey=${primaryKey}`;
+    return this.http.delete<any>(networkUrl, { body: idFields });
   }
   sensoSelectboxValuesProtocolloCem(): Observable<any>{
     const networkUrl = this._portalApiRoot + `senso`;

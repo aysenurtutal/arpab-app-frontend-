@@ -22,7 +22,7 @@ export class AppMenuComponent implements OnInit {
                         label: 'PROTOCOLLI', icon: 'pi pi-home',
                         items: [
                             {
-                                label: 'Protocollo', icon: 'pi pi-fw pi-pencil', routerLink: ['protocollo']
+                                label: 'Protocollo', icon: 'pi pi-fw pi-pencil', routerLink: ['protocollocem']
                             },
                             {
                                 label: 'Vedi Protokolli GEOS', icon: 'pi pi-fw pi-pencil', routerLink: ['protocollogeos']
@@ -48,13 +48,13 @@ export class AppMenuComponent implements OnInit {
                         label: 'MISURAZIONI', icon: 'pi pi-home',
                         items: [
                             {
-                                label: 'Misure CEM', icon: 'pi pi-fw pi-pencil', routerLink: ['']
+                                label: 'Misure CEM', icon: 'pi pi-fw pi-pencil', routerLink: ['misurecemrf']
                             },
                             {
-                                label: 'Sondestrum', icon: 'pi pi-fw pi-pencil', routerLink: ['']
+                                label: 'Sondestrum', icon: 'pi pi-fw pi-pencil', routerLink: ['sondestrum']
                             },
                             {
-                                label: 'Strumenticem', icon: 'pi pi-fw pi-pencil', routerLink: ['']
+                                label: 'Strumenticem', icon: 'pi pi-fw pi-pencil', routerLink: ['strumenticem']
                             },
                         ]
                     },

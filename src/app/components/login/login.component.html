@@ -9,7 +9,7 @@
             <label for="password">Password</label>
             <input [(ngModel)]="password" id="password" name="password" pPassword required type="password">
         </div>
-        <button [disabled]="!username || !password" [routerLink]="''" class="p-button-primary" label="Login"
+        <button [disabled]="!username || !password" [routerLink]="'/dashboard'" class="p-button-primary" label="Login"
                 pButton></button>
     </form>
 </div>

@@ -12,6 +12,9 @@ import {ProtocolliGeosComponent} from "./components/pages-sidebar/protocolli-geo
 import {CodiceSitoGestoriComponent} from "./components/pages-sidebar/codice-sito-gestori/codice-sito-gestori.component";
 import {RilevazioniSitoComponent} from "./components/pages-sidebar/rilevazioni-sito/rilevazioni-sito.component";
 import {GestoriCemComponent} from "./components/pages-sidebar/gestori-cem/gestori-cem.component";
+import {StrumentiCemComponent} from "./components/pages-sidebar/strumenti-cem/strumenti-cem.component";
+import {SondestrumComponent} from "./components/pages-sidebar/sondestrum/sondestrum.component";
+import {MisureCemComponent} from "./components/pages-sidebar/misure-cem/misure-cem.component";
 
 
 // { path: 'login', component: LoginComponent, canActivate: [authGuard]},
@@ -21,11 +24,14 @@ const routes: Routes = [
     path: '', component: AppLayoutComponent,
     children: [
       {path: 'dashboard', component: DashboardComponent},
-      {path: 'protocollo', component: ProtocolloCemComponent},
+      {path: 'protocollocem', component: ProtocolloCemComponent},
       {path: 'protocollogeos', component: ProtocolliGeosComponent},
       {path: 'codicesitogestori', component: CodiceSitoGestoriComponent},
       {path: 'rilevazionisito', component: RilevazioniSitoComponent},
       {path: 'gestori', component: GestoriCemComponent},
+      {path: 'strumenticem', component: StrumentiCemComponent},
+      {path: 'sondestrum', component: SondestrumComponent},
+      {path: 'misurecemrf', component: MisureCemComponent},
     ]
   },
   {path: 'login', component: LoginComponent},

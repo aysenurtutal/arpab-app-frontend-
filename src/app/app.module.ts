@@ -55,6 +55,9 @@ import {ProtocolliGeosComponent} from "./components/pages-sidebar/protocolli-geo
 import {CodiceSitoGestoriComponent} from "./components/pages-sidebar/codice-sito-gestori/codice-sito-gestori.component";
 import {RilevazioniSitoComponent} from "./components/pages-sidebar/rilevazioni-sito/rilevazioni-sito.component";
 import {GestoriCemComponent} from "./components/pages-sidebar/gestori-cem/gestori-cem.component";
+import {StrumentiCemComponent} from "./components/pages-sidebar/strumenti-cem/strumenti-cem.component";
+import {SondestrumComponent} from "./components/pages-sidebar/sondestrum/sondestrum.component";
+import {MisureCemComponent} from "./components/pages-sidebar/misure-cem/misure-cem.component";
 
 
 @NgModule({
@@ -76,7 +79,10 @@ import {GestoriCemComponent} from "./components/pages-sidebar/gestori-cem/gestor
         ProtocolliGeosComponent,
         CodiceSitoGestoriComponent,
         RilevazioniSitoComponent,
-        GestoriCemComponent
+        GestoriCemComponent,
+        StrumentiCemComponent,
+        SondestrumComponent,
+        MisureCemComponent
 
     ],
     imports: [

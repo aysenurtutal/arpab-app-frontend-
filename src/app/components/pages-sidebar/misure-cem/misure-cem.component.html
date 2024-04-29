@@ -1,0 +1,560 @@
+ <div>
+    <div style="display: inline-flex;">
+        <span class="pi pi-home" routerLink="/dashboard"></span>
+    </div>
+    <span class="font-medium ml-2">/ Misure CEM </span>
+</div>
+
+<p-toolbar styleClass="mb-4" class="col-12">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="AGGIUNGI NUOVO" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNewData()"></button>
+        <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedDatas()" [disabled]="!selectedDatas || !selectedDatas.length"></button>
+    </ng-template>
+
+    <ng-template pTemplate="center">
+        <div class="search-container">
+        <span class="p-input-icon-left" style="width: 400px;">
+            <i class="pi pi-search" style="margin-right: 5px;"></i>
+            <input style="background-color: white;" pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                   placeholder="Ricerce Idimiscem"
+                   class="search-input"/>
+        </span>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="right" >
+        <!--        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>-->
+        <button pButton pRipple label="Export Excel (Selected)" icon="pi pi-file-pdf" class="p-button-help p-button-sm mr-2" style="max-width: 100px" (click)="selectedExportExcel()"></button>
+
+        <button pButton pRipple label="Export Excel (All)" icon="pi pi-file-excel" class="p-button-help p-button-sm" style="max-width: 100px" (click)="exportExcelAll()"></button>
+    </ng-template>
+</p-toolbar>
+
+<div style="max-height: 700px; overflow: auto;">
+<p-table #dt [value]="datas" [rows]="10" [paginator]="true" [globalFilterFields]="['idimiscem']"
+         [(selection)]="selectedDatas" [rowHover]="true" dataKey="idimiscem" [rowsPerPageOptions]="[10, 25, 50]"
+         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+         [tableStyle]="{ 'min-width': '75rem' }" styleClass="p-datatable-gridlines" class="custom-table">
+    <ng-template pTemplate="header">
+        <tr style="background-color: blue;">
+            <th style="text-align: center;background-color: lightgray">
+            </th>
+            <th style="text-align: center;background-color: lightgray">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th style="text-align: center;background-color: lightgray">
+                <p style="display: inline-flex">
+                    <a style="color: lightgray">.........</a>
+                    Azione
+                    <a style="color: lightgray">.........</a>
+                </p>
+            </th>
+            <th pSortableColumn="idimiscem" style="text-align: center;background-color: lightgray">
+                Idimiscem <p-sortIcon field="idimiscem"></p-sortIcon>
+            </th>
+            <th pSortableColumn="sopralluogo" style="text-align: center;background-color: lightgray">
+                Sopralluogo <p-sortIcon field="sopralluogo"></p-sortIcon>
+            </th>
+            <th pSortableColumn="tipologia" style="text-align: center;background-color: lightgray">
+                Tipologia <p-sortIcon field="tipologia"></p-sortIcon>
+            </th>
+            <th pSortableColumn="comune" style="text-align: center;background-color: lightgray">
+                Comune <p-sortIcon field="comune"></p-sortIcon>
+            </th>
+            <th pSortableColumn="provincia" style="text-align: center;background-color: lightgray">
+                Provincia <p-sortIcon field="provincia"></p-sortIcon>
+            </th>
+            <th pSortableColumn="codsito" style="text-align: center;background-color: lightgray">
+                Codsito <p-sortIcon field="codsito"></p-sortIcon>
+            </th>
+            <th pSortableColumn="data" style="text-align: center;background-color: lightgray">
+                Data <p-sortIcon field="data"></p-sortIcon>
+            </th>
+            <th pSortableColumn="modstrum" style="text-align: center;background-color: lightgray">
+                Modstrum <p-sortIcon field="modstrum"></p-sortIcon>
+            </th>
+            <th pSortableColumn="sonda" style="text-align: center;background-color: lightgray">
+                Sonda <p-sortIcon field="sonda"></p-sortIcon>
+            </th>
+            <th pSortableColumn="tartstrum" style="text-align: center;background-color: lightgray">
+                Tartstrum <p-sortIcon field="tartstrum"></p-sortIcon>
+            </th>
+            <th pSortableColumn="puntodimisura" style="text-align: center;background-color: lightgray">
+                Puntodimisura <p-sortIcon field="puntodimisura"></p-sortIcon>
+            </th>
+            <th pSortableColumn="descpuntomis" style="text-align: center;background-color: lightgray">
+                Descpuntomis <p-sortIcon field="descpuntomis"></p-sortIcon>
+            </th>
+            <th pSortableColumn="latitudine" style="text-align: center;background-color: lightgray">
+                Latitudine <p-sortIcon field="latitudine"></p-sortIcon>
+            </th>
+            <th pSortableColumn="longitudine" style="text-align: center;background-color: lightgray">
+                Longitudine <p-sortIcon field="longitudine"></p-sortIcon>
+            </th>
+            <th pSortableColumn="valeffrmsvm" style="text-align: center;background-color: lightgray">
+                Valeffrmsvm <p-sortIcon field="valeffrmsvm"></p-sortIcon>
+            </th>
+            <th pSortableColumn="valeffrmsut" style="text-align: center;background-color: lightgray">
+                Valeffrmsut <p-sortIcon field="valeffrmsut"></p-sortIcon>
+            </th>
+            <th pSortableColumn="permcontgio" style="text-align: center;background-color: lightgray">
+                Permcontgio <p-sortIcon field="permcontgio"></p-sortIcon>
+            </th>
+            <th pSortableColumn="limleggevm" style="text-align: center;background-color: lightgray">
+                Limleggevm <p-sortIcon field="limleggevm"></p-sortIcon>
+            </th>
+            <th pSortableColumn="limleggeut" style="text-align: center;background-color: lightgray">
+                Limleggeut <p-sortIcon field="limleggeut"></p-sortIcon>
+            </th>
+            <th pSortableColumn="rangefreq" style="text-align: center;background-color: lightgray">
+                Rangefreq <p-sortIcon field="rangefreq"></p-sortIcon>
+            </th>
+            <th pSortableColumn="gammamisura" style="text-align: center;background-color: lightgray">
+                Gammamisura <p-sortIcon field="gammamisura"></p-sortIcon>
+            </th>
+            <th pSortableColumn="sovraccarico" style="text-align: center;background-color: lightgray">
+                Sovraccarico <p-sortIcon field="sovraccarico"></p-sortIcon>
+            </th>
+            <th pSortableColumn="risoluzione" style="text-align: center;background-color: lightgray">
+                Risoluzione <p-sortIcon field="risoluzione"></p-sortIcon>
+            </th>
+            <th pSortableColumn="misisotrop" style="text-align: center;background-color: lightgray">
+                Misisotrop <p-sortIcon field="misisotrop"></p-sortIcon>
+            </th>
+
+        </tr>
+        <tr>
+            <th style="background-color: lightgray"></th>
+            <th style="background-color: lightgray"></th>
+            <th style="background-color: lightgray"></th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="idimiscem"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="sopralluogo"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="tipologia"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="comune"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="provincia"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="codsito"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="data"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="modstrum"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="sonda"></p-columnFilter>
+            </th>
+
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="tartstrum"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="puntodimisura"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="descpuntomis"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="latitudine"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="longitudine"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="valeffrmsvm"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="valeffrmsut"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="permcontgio"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="limleggevm"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="limleggeut"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="rangefreq"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="gammamisura"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="sovraccarico"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="sovraccarico"></p-columnFilter>
+            </th>
+            <th style="background-color: lightgray">
+                <p-columnFilter type="text" field="misisotrop"></p-columnFilter>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5">No data found.</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data>
+        <tr>
+            <td style="text-align: center;">
+                <button type="button" pButton pRipple [pRowToggler]="data" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            </td>
+            <td style="text-align: center;"> <!-- Center align data -->
+                <p-tableCheckbox [value]="data"></p-tableCheckbox>
+            </td>
+            <td style="text-align: center;">
+                <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-primary mr-2" (click)="showData(data)"></button>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editData(data)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteData(data)"></button>
+            </td>
+            <td style="text-align: center;">
+                {{data?.idimiscem}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.sopralluogo}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.tipologia}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.comune}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.provincia}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.codsito}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.data | date:'yyyy-MM-dd'}}
+            </td>
+            <td style="text-align: center;">
+                <ng-container *ngIf="data?.modstrum">
+                <span *ngFor="let modstrum of parseDataFields(data.modstrum); let last = last">
+                    {{ modstrum }}
+                    <span *ngIf="!last">, </span>
+                </span>
+                </ng-container>
+            </td>
+            <td style="text-align: center;">
+                {{data?.sonda}}
+            </td>
+            <td style="text-align: center;">
+                <ng-container *ngIf="data?.tartstrum">
+                <span *ngFor="let tartstrum of parseDataFields(data.tartstrum); let last = last">
+                    {{ tartstrum }}
+                    <span *ngIf="!last">, </span>
+                </span>
+                </ng-container>
+            </td>
+            <td style="text-align: center;">
+                {{data?.puntodimisura}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.descpuntomis}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.latitudine}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.longitudine}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.valeffrmsvm}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.valeffrmsut}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.permcontgio}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.limleggevm}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.limleggeut}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.rangefreq}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.gammamisura}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.sovraccarico}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.risoluzione}}
+            </td>
+            <td style="text-align: center;">
+                {{data?.misisotrop}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-data>
+        <tr>
+            <td colspan="12">
+                <div class="expanded-row">
+                    <strong>idimiscem:&nbsp;&nbsp;&nbsp;&nbsp;</strong>{{ data?.idimiscem }}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="12">
+                <div class="expanded-row">
+                    <strong>Num. Prot. Coll.:&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                    <ng-container *ngIf="data?.modstrum">
+                        <span *ngFor="let modstrum of parseDataFields(data.modstrum); let last = last">
+                            {{ modstrum }}
+                            <span *ngIf="!last">, </span>
+                        </span>
+                    </ng-container>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="12">
+                <div class="expanded-row">
+                    <strong>Numero Cod Sito:&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                    <ng-container *ngIf="data?.codsito">
+                        <span *ngFor="let codsito of parseDataFields(data.codsito); let last = last">
+                            {{ codsito }}
+                            <span *ngIf="!last">, </span>
+                        </span>
+                    </ng-container>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            In total there are {{datas ? datas.length : 0 }} datas.
+        </div>
+    </ng-template>
+
+</p-table>
+</div>
+
+<!-- FORM POPUP KISMI-->
+<p-dialog [(visible)]="newDialog || dataDialog" [style]="{width: '700px'}" header="Add & Update Data" [modal]="true" [maximizable]="true">
+    <form [formGroup]="dataForm" (ngSubmit)="saveData()" novalidate class="form-dialog">
+        <div class="field">
+            <label for="attività" class="block">Attività</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="attività"  [options]="attivitaOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="field">
+            <label for="tipologia" class="block">Tipologia</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="tipologia"  [options]="tipologiaOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="field">
+            <label for="comune" class="block">Comune</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="comune"  [options]="comuneOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="field">
+            <label for="provincia" class="block">Provincia</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="provincia"  [options]="provinciaOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="field">
+            <label for="codsito" class="block">Numero Codice Sito</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="codsito"  [options]="numcodsitoOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+
+        <div class="field">
+            <label for="data" class="block">Data</label>
+            <p-calendar *ngIf="!isDataReadonly" formControlName="data" dateFormat="dd-mm-yy" [showIcon]="true" ></p-calendar>
+        </div>
+
+        <div class="field">
+            <label for="modstrum" class="block">Modello Strumento</label>
+            <p-multiSelect *ngIf="!isDataReadonly"
+                           formControlName="modstrum"  [options]="modellostrumOptions"
+                           [showClear]="true" placeholder="Select Multiple"></p-multiSelect>
+        </div>
+        <div class="field">
+            <label for="sonda" class="block">Sonda Collegata</label>
+            <p-dropdown *ngIf="!isDataReadonly"
+                        formControlName="sonda"  [options]="sondaCollegataOptions"
+                        optionLabel="valore" optionValue="valore"
+                        [showClear]="true" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="field">
+            <label for="tartstrum" class="block">Taratura Strumento</label>
+            <p-multiSelect *ngIf="!isDataReadonly"
+                           formControlName="tartstrum"  [options]="taraturastrumOptions"
+                           [showClear]="true" placeholder="Select Multiple"></p-multiSelect>
+        </div>
+
+        <div class="field">
+            <label for="puntodimisura" class="block">Punto Di Misura</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="puntodimisura" />
+        </div>
+        <div class="field">
+            <label for="descpuntomis" class="block">Descrizione Punto Di Misura</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="descpuntomis" />
+        </div>
+        <div class="field">
+            <label for="latitudine" class="block">Latitudine</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="latitudine" />
+        </div>
+        <div class="field">
+            <label for="longitudine" class="block">Longitudine</label>
+            <input *ngIf="!isDataReadonly" type="text" pInputText formControlName="longitudine" />
+        </div>
+
+        <div class="actions">
+            <button pButton type="button" label="Cancel" (click)="hideDataDialog()"></button>
+            <button pButton type="submit" label="Submit" [disabled]="dataForm.invalid"></button>
+        </div>
+
+    </form>
+</p-dialog>
+
+<!-- SEÇİLİ SATIRIN DATASINI GÖRÜNTÜLEME POP UPI-->
+<p-dialog  [(visible)]="dataShowDialog" header="Data Details" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [style]="{width: '400px'}" [contentStyle]="{height: '300px'}">
+    <div style="overflow-y: auto;">
+        <table class="vertical-table" width="350px">
+            <tbody>
+            <tr>
+                <td class="idimiscem">Idimiscem</td>
+                <td>{{selectedData?.idimiscem}}</td>
+            </tr>
+            <tr>
+                <td class="sopralluogo">Sopralluogo</td>
+                <td>{{selectedData?.sopralluogo}}</td>
+            </tr>
+            <tr>
+                <td class="comune">Comune</td>
+                <td>{{selectedData?.comune}}</td>
+            </tr>
+            <tr>
+                <td class="provincia">Provincia</td>
+                <td>{{selectedData?.provincia}}</td>
+            </tr>
+            <tr>
+                <td class="codsito">Codsito</td>
+                <td>{{selectedData?.codsito}}</td>
+            </tr>
+            <tr>
+                <td class="data">Data</td>
+                <td>{{selectedData?.data | date:'yyyy-MM-dd'}}</td>
+            </tr>
+<!--            MULTIPLE DATA, FIX IT THEN-->
+            <tr>
+                <td class="modstrum">Modstrum</td>
+                <td>{{selectedData?.modstrum}}</td>
+            </tr>
+            <tr>
+                <td class="sonda">Sonda</td>
+                <td>{{selectedData?.sonda}}</td>
+            </tr>
+            <!--            MULTIPLE DATA, FIX IT THEN-->
+            <tr>
+                <td class="tartstrum">Tartstrum</td>
+                <td>{{selectedData?.tartstrum}}</td>
+            </tr>
+            <tr>
+                <td class="puntodimisura">Puntodimisura</td>
+                <td>{{selectedData?.puntodimisura}}</td>
+            </tr>
+            <tr>
+                <td class="descpuntomis">Descpuntomis</td>
+                <td>{{selectedData?.descpuntomis}}</td>
+            </tr>
+            <tr>
+                <td class="latitudine">Latitudine</td>
+                <td>{{selectedData?.latitudine}}</td>
+            </tr>
+            <tr>
+                <td class="longitudine">Longitudine</td>
+                <td>{{selectedData?.longitudine}}</td>
+            </tr>
+            <tr>
+                <td class="valeffrmsvm">Valeffrmsvm</td>
+                <td>{{selectedData?.valeffrmsvm}}</td>
+            </tr>
+            <tr>
+                <td class="valeffrmsut">Valeffrmsut</td>
+                <td>{{selectedData?.valeffrmsut}}</td>
+            </tr>
+            <tr>
+                <td class="permcontgio">Permcontgio</td>
+                <td>{{selectedData?.permcontgio}}</td>
+            </tr>
+            <tr>
+                <td class="limleggevm">Limleggevm</td>
+                <td>{{selectedData?.limleggevm}}</td>
+            </tr>
+            <tr>
+                <td class="limleggeut">Limleggeut</td>
+                <td>{{selectedData?.limleggeut}}</td>
+            </tr>
+            <tr>
+                <td class="rangefreq">Rangefreq</td>
+                <td>{{selectedData?.rangefreq}}</td>
+            </tr>
+            <tr>
+                <td class="gammamisura">Gammamisura</td>
+                <td>{{selectedData?.gammamisura}}</td>
+            </tr>
+            <tr>
+                <td class="sovraccarico">Sovraccarico</td>
+                <td>{{selectedData?.sovraccarico}}</td>
+            </tr>
+            <tr>
+                <td class="risoluzione">Risoluzione</td>
+                <td>{{selectedData?.risoluzione}}</td>
+            </tr>
+            <tr>
+                <td class="misisotrop">Misisotrop</td>
+                <td>{{selectedData?.misisotrop}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="actions">
+            <button style="width: 120px; height: 30px; background-color: green;margin-top: 20px;"
+                    pButton type="button" label="Export Excel" (click)="selectedExportExcelForOneData()"></button>
+            <button style="width: 80px; height: 30px; background-color: red;margin-top: 20px;"
+                    pButton type="button" label="Cancel" (click)="hideShowDialog()"></button>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

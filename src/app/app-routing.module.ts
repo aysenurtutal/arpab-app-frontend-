@@ -10,6 +10,8 @@ import {ProtocolloCemComponent} from "./components/pages-sidebar/protocollo-cem/
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ProtocolliGeosComponent} from "./components/pages-sidebar/protocolli-geos/protocolli-geos.component";
 import {CodiceSitoGestoriComponent} from "./components/pages-sidebar/codice-sito-gestori/codice-sito-gestori.component";
+import {RilevazioniSitoComponent} from "./components/pages-sidebar/rilevazioni-sito/rilevazioni-sito.component";
+import {GestoriCemComponent} from "./components/pages-sidebar/gestori-cem/gestori-cem.component";
 
 
 // { path: 'login', component: LoginComponent, canActivate: [authGuard]},
@@ -22,6 +24,8 @@ const routes: Routes = [
       {path: 'protocollo', component: ProtocolloCemComponent},
       {path: 'protocollogeos', component: ProtocolliGeosComponent},
       {path: 'codicesitogestori', component: CodiceSitoGestoriComponent},
+      {path: 'rilevazionisito', component: RilevazioniSitoComponent},
+      {path: 'gestori', component: GestoriCemComponent},
     ]
   },
   {path: 'login', component: LoginComponent},

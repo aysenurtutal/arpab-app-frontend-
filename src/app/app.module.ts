@@ -58,6 +58,7 @@ import {GestoriCemComponent} from "./components/pages-sidebar/gestori-cem/gestor
 import {StrumentiCemComponent} from "./components/pages-sidebar/strumenti-cem/strumenti-cem.component";
 import {SondestrumComponent} from "./components/pages-sidebar/sondestrum/sondestrum.component";
 import {MisureCemComponent} from "./components/pages-sidebar/misure-cem/misure-cem.component";
+import {MultipleValueFormatPipe} from "./components/pages-sidebar/protocollo-cem/multiple-value-format.pipe";
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import {MisureCemComponent} from "./components/pages-sidebar/misure-cem/misure-c
         GestoriCemComponent,
         StrumentiCemComponent,
         SondestrumComponent,
-        MisureCemComponent
+        MisureCemComponent,
+        MultipleValueFormatPipe
 
     ],
     imports: [

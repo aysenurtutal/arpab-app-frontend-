@@ -247,13 +247,16 @@
             <td style="text-align: center;">
                 {{data?.oggetto}}
             </td>
+<!--            <td style="text-align: center;">-->
+<!--                <ng-container *ngIf="data?.subassegnazione">-->
+<!--                <span *ngFor="let subassegnazione of parseDataFields(data.subassegnazione); let last = last">-->
+<!--                    {{ subassegnazione }}-->
+<!--                    <span *ngIf="!last">, </span>-->
+<!--                </span>-->
+<!--                </ng-container>-->
+<!--            </td>-->
             <td style="text-align: center;">
-                <ng-container *ngIf="data?.subassegnazione">
-                <span *ngFor="let subassegnazione of parseDataFields(data.subassegnazione); let last = last">
-                    {{ subassegnazione }}
-                    <span *ngIf="!last">, </span>
-                </span>
-                </ng-container>
+                {{data?.subassegnazione | multipleValueFormat}}
             </td>
             <td style="text-align: center;">
                 {{data?.note}}
@@ -323,7 +326,6 @@
                     <ng-container *ngIf="data?.numprotcoll">
                         <span *ngFor="let numprotcoll of parseDataFields(data.numprotcoll); let last = last">
                             {{ numprotcoll }}
-                            <span *ngIf="!last">, </span>
                         </span>
                     </ng-container>
                 </div>

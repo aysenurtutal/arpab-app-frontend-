@@ -328,9 +328,35 @@ export class ProtocolloCemComponent implements OnInit{
     dtoOut.destinatario = this.dataForm.get('destinatario').value;
     dtoOut.oggetto = this.dataForm.get('oggetto').value;
     dtoOut.protcollegato = this.dataForm.get('protcollegato').value;
-    dtoOut.numprotcoll = this.dataForm.get('numprotcoll').value;
+    let numprotcollControls = this.dataForm.get('numprotcoll').value;
+    if (numprotcollControls && Array.isArray(numprotcollControls)) {
+      let modifiedValues = [];
+      for (let i = 0; i < numprotcollControls.length; i++) {
+        let value = numprotcollControls[i].replace(/"/g, ''); // Remove double quotes
+        let parts = value.split('/'); // Split by forward slash
+        let numberValue = parts[0]; // Get the first part (before the slash)
+        modifiedValues.push(numberValue);
+      }
+      dtoOut.numprotcoll = "[" + modifiedValues.join(",") + "]"; // Join values with comma and add brackets
+    }
+
+
+    // dtoOut.numprotcoll = this.dataForm.get('numprotcoll').value;
+
     dtoOut.riscontrogeos = this.dataForm.get('riscontrogeos').value;
-    dtoOut.subassegnazione = this.dataForm.get('subassegnazione').value;
+
+    let subassegnazioneControls = this.dataForm.get('subassegnazione').value;
+    if (subassegnazioneControls && Array.isArray(subassegnazioneControls)) {
+      let modifiedSubassegnazioneValues = [];
+      for (let i = 0; i < subassegnazioneControls.length; i++) {
+        let value = subassegnazioneControls[i].replace(/"/g, ''); // Remove double quotes
+        let parts = value.split('/'); // Split by forward slash
+        let numberValue = parts[0]; // Get the first part (before the slash)
+        modifiedSubassegnazioneValues.push(numberValue);
+      }
+      dtoOut.subassegnazione = "[" + modifiedSubassegnazioneValues.join(",") + "]"; // Join values with comma and add brackets
+    }
+    // dtoOut.subassegnazione = this.dataForm.get('subassegnazione').value;
     dtoOut.note = this.dataForm.get('note').value;
     dtoOut.tematica = this.dataForm.get('tematica').value;
     dtoOut.categoria = this.dataForm.get('categoria').value;

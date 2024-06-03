@@ -328,6 +328,7 @@ export class ProtocolloCemComponent implements OnInit{
     dtoOut.destinatario = this.dataForm.get('destinatario').value;
     dtoOut.oggetto = this.dataForm.get('oggetto').value;
     dtoOut.protcollegato = this.dataForm.get('protcollegato').value;
+
     let numprotcollControls = this.dataForm.get('numprotcoll').value;
     if (numprotcollControls && Array.isArray(numprotcollControls)) {
       let modifiedValues = [];
@@ -361,13 +362,53 @@ export class ProtocolloCemComponent implements OnInit{
     dtoOut.tematica = this.dataForm.get('tematica').value;
     dtoOut.categoria = this.dataForm.get('categoria').value;
     dtoOut.sottocategoria = this.dataForm.get('sottocategoria').value;
-    dtoOut.azione = this.dataForm.get('azione').value;
+
+    let azioneControls = this.dataForm.get('azione').value;
+    if (azioneControls && Array.isArray(azioneControls)) {
+      let modifiedAzioneValues = [];
+      for (let i = 0; i < azioneControls.length; i++) {
+        let value = azioneControls[i].replace(/"/g, ''); // Remove double quotes
+        let parts = value.split('/'); // Split by forward slash
+        let numberValue = parts[0]; // Get the first part (before the slash)
+        modifiedAzioneValues.push(numberValue);
+      }
+      dtoOut.azione = "[" + modifiedAzioneValues.join(",") + "]"; // Join values with comma and add brackets
+    }
+
+    // dtoOut.azione = this.dataForm.get('azione').value;
+
     dtoOut.azionedup = this.dataForm.get('azionedup').value;
-    dtoOut.protriferime = this.dataForm.get('protriferime').value;
+
+    let protriferimeControls = this.dataForm.get('protriferime').value;
+    if (protriferimeControls && Array.isArray(protriferimeControls)) {
+      let modifiedProtriferimeValues = [];
+      for (let i = 0; i < protriferimeControls.length; i++) {
+        let value = protriferimeControls[i].replace(/"/g, ''); // Remove double quotes
+        let parts = value.split('/'); // Split by forward slash
+        let numberValue = parts[0]; // Get the first part (before the slash)
+        modifiedProtriferimeValues.push(numberValue);
+      }
+      dtoOut.protriferime = "[" + modifiedProtriferimeValues.join(",") + "]"; // Join values with comma and add brackets
+    }
+    // dtoOut.protriferime = this.dataForm.get('protriferime').value;
+
     dtoOut.aie = this.dataForm.get('aie').value;
     dtoOut.congiunta = this.dataForm.get('congiunta').value;
     dtoOut.simulazione = this.dataForm.get('simulazione').value;
-    dtoOut.numcodsito = this.dataForm.get('numcodsito').value;
+
+    let numcodsitoControls = this.dataForm.get('numcodsito').value;
+    if (numcodsitoControls && Array.isArray(numcodsitoControls)) {
+      let modifiedNumcodsitoValues = [];
+      for (let i = 0; i < numcodsitoControls.length; i++) {
+        let value = numcodsitoControls[i].replace(/"/g, ''); // Remove double quotes
+        let parts = value.split('/'); // Split by forward slash
+        let numberValue = parts[0]; // Get the first part (before the slash)
+        modifiedNumcodsitoValues.push(numberValue);
+      }
+      dtoOut.numcodsito = "[" + modifiedNumcodsitoValues.join(",") + "]"; // Join values with comma and add brackets
+    }
+
+    // dtoOut.numcodsito = this.dataForm.get('numcodsito').value;
     dtoOut.statoimpianto = this.dataForm.get('statoimpianto').value;
     dtoOut.statoprocedura = this.dataForm.get('statoprocedura').value;
 

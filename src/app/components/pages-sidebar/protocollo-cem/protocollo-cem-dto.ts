@@ -16,7 +16,7 @@ export class ProtocolloCemDto {
     mittente?: string;
     notadigos?: string;
     note?: string;
-    numcodsito?: string[];
+    numcodsito?: string;
     numprotcoll?: string;
     oggetto?: string;
     protocollo?: string;

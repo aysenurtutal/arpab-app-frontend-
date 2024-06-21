@@ -1,7 +1,7 @@
 export class ProtocolloCemDto {
     aie?: string;
     autore?: string;
-    azione?: string;
+    azione?: [];
     azionedup?: string;
     categoria?: string;
     cdsdata?: any;
@@ -16,12 +16,12 @@ export class ProtocolloCemDto {
     mittente?: string;
     notadigos?: string;
     note?: string;
-    numcodsito?: string;
-    numprotcoll?: string;
+    numcodsito?: [];
+    numprotcoll?: [];
     oggetto?: string;
     protocollo?: string;
     protcollegato?: string;
-    protriferime?: any;
+    protriferime?: [];
     riscontrogeos?: any;
     scadenza?: any;
     scadenza2?: any;
@@ -30,6 +30,6 @@ export class ProtocolloCemDto {
     sottocategoria?: string;
     statoimpianto?: string;
     statoprocedura?: any;
-    subassegnazione?: any;
+    subassegnazione?: [];
     tematica?: string;
 }

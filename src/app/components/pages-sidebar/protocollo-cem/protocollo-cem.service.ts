@@ -23,8 +23,8 @@ export class ProtocolloCemService {
     const networkUrl = this._portalApiRoot + `protocollocem`;
     return this.http.post<ProtocolloCemDto>(networkUrl,{fields:dtoOut});
   }
-  putUpdatedOneDataProtocolloCem(idField: number, dtoOut: ProtocolloCemDto): Observable<ProtocolloCemDto> {
-    const networkUrl = `${this._portalApiRoot}protocollocem?idField=${idField}`;
+  putUpdatedOneDataProtocolloCem(idprot: number, dtoOut: ProtocolloCemDto): Observable<ProtocolloCemDto> {
+    const networkUrl = `${this._portalApiRoot}protocollocem?idprot=${idprot}`;
     return this.http.put<ProtocolloCemDto>(networkUrl, {fields:dtoOut});
   }
   deleteSelectedDataProtocolloCem(idField: any): Observable<any> {
